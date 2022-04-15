@@ -1,0 +1,11 @@
+.popup {
+  background-color: rgba(0, 0, 0, 0.5);
+  position: fixed;
+  z-index: 999;
+  width: 100vw;
+  height: 100vh;
+
+  display: none; /*display: flex; необходимо задать этот класс чтоб открыть popup*/
+  justify-content: center;
+  align-items: center;
+}

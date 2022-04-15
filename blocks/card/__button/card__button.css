@@ -1,0 +1,11 @@
+.card__button {
+  background-color: #fff;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.4s;
+}
+
+.card__button:hover {
+  opacity: 0.6;
+  cursor: pointer;
+}

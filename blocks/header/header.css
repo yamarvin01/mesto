@@ -1,0 +1,12 @@
+.header {
+  width: 100%; /*Свойство не дает странице схлопнуться по ширине*/
+  max-width: 880px;
+  border-bottom: 1px solid rgba(84, 84, 84, 1);
+  padding: 45px 0 40px;
+}
+
+@media screen and (max-width: 700px) {
+  .header {
+    padding: 28px 0 30px;
+  }
+}
