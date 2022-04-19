@@ -1,9 +1,10 @@
 .profile__edit {
   grid-area: edit;
+  align-self: end;
 
   display: flex;
   justify-content: start;
-  align-items: end;
+  align-items: baseline;
 
   text-overflow: ellipsis;
   white-space: nowrap;
