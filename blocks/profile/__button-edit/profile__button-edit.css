@@ -3,7 +3,7 @@
   width: 33px;
   height: 24px;
   border: none;
-  background-color: #000;
+  background-color: rgba(255, 255, 255, 0);
   background-image: url('../../../images/btn-edit.svg');
   background-repeat: no-repeat;
   background-size: contain;

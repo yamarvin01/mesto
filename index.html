@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./vendor/normalize.css" />
     <link rel="stylesheet" href="./pages/index.css" />
     <title>mesto</title>
   </head>
@@ -20,7 +19,7 @@
         </a>
       </header>
 
-      <div class="content">
+      <main class="content">
         <section class="profile">
           <img
             class="profile__avatar"
@@ -43,8 +42,9 @@
           ></button>
         </section>
 
+        <!-- Todo: Карточки дублируются: вынести в общий template -->
         <section class="cards">
-          <div class="card">
+          <article class="card">
             <img
               class="card__image"
               src="./images/img-borovsk.jpeg"
@@ -53,14 +53,14 @@
             <div class="card__info">
               <h2 class="card__title">Карачаевск</h2>
               <button
-                class="card__button card__button_type_like"
+                class="card__button"
                 type="button"
                 aria-label="Кнопка лайк"
               ></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img
               class="card__image"
               src="./images/img-kazan.jpeg"
@@ -69,14 +69,14 @@
             <div class="card__info">
               <h2 class="card__title">Казань</h2>
               <button
-                class="card__button card__button_type_like"
+                class="card__button"
                 type="button"
                 aria-label="Кнопка лайк"
               ></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img
               class="card__image"
               src="./images/img-kirzach.jpeg"
@@ -85,14 +85,14 @@
             <div class="card__info">
               <h2 class="card__title">Киржач</h2>
               <button
-                class="card__button card__button_type_like"
+                class="card__button"
                 type="button"
                 aria-label="Кнопка лайк"
               ></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img
               class="card__image"
               src="./images/img-kolomenskoye.jpeg"
@@ -101,14 +101,14 @@
             <div class="card__info">
               <h2 class="card__title">Коломенское</h2>
               <button
-                class="card__button card__button_type_like"
+                class="card__button"
                 type="button"
                 aria-label="Кнопка лайк"
               ></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img
               class="card__image"
               src="./images/img-neftekamsk.jpeg"
@@ -117,14 +117,14 @@
             <div class="card__info">
               <h2 class="card__title">Нефтекамск</h2>
               <button
-                class="card__button card__button_type_like"
+                class="card__button"
                 type="button"
                 aria-label="Кнопка лайк"
               ></button>
             </div>
-          </div>
+          </article>
 
-          <div class="card">
+          <article class="card">
             <img
               class="card__image"
               src="./images/img-zvenigorod.jpeg"
@@ -133,14 +133,14 @@
             <div class="card__info">
               <h2 class="card__title">Звенигород</h2>
               <button
-                class="card__button card__button_type_like"
+                class="card__button"
                 type="button"
                 aria-label="Кнопка лайк"
               ></button>
             </div>
-          </div>
+          </article>
         </section>
-      </div>
+      </main>
 
       <footer class="footer">
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
@@ -153,11 +153,13 @@
             <input
               class="popup__input popup__input_type_name"
               type="text"
+              name="fullName"
               placeholder="Имя"
             />
             <input
               class="popup__input popup__input_type_text"
               type="text"
+              name="aboutYourSelf"
               placeholder="О себе"
             />
             <button
@@ -167,7 +169,10 @@
               Сохранить
             </button>
           </form>
-          <button class="popup__button popup__button_type_close"></button>
+          <button
+            class="popup__button popup__button_type_close"
+            type="submit"
+          ></button>
         </div>
       </div>
     </div>

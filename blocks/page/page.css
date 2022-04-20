@@ -3,6 +3,7 @@
   font-family: 'Inter', Arial, sans-serif;
   font-style: normal;
   font-weight: 400;
+  line-height: 1.2;
   color: #fff;
   -webkit-font-smoothing: antialiased; /*Сглаживание шрифтов в Safari, Google Chrome, Yandex и Opera*/
   -moz-osx-font-smoothing: grayscale; /*Сглаживание шрифтов в Mozilla Firefox*/
@@ -20,6 +21,10 @@
 
   min-width: 320px; /*Жестко зафиксировано: сайт не может быть меньше 320px*/
   background-color: #000;
+
+  /*Для всей страницы есть минимальный отступ 20px*/
+  box-sizing: border-box;
+  padding: 0 20px;
 
   min-height: 100vh;
 }
