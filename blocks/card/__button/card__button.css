@@ -1,11 +1,16 @@
 .card__button {
-  background-color: #fff;
+  min-width: 22px;
+  height: 20px;
   border: none;
-  cursor: pointer;
-  transition: opacity 0.4s;
+  background-color: rgba(255, 255, 255, 0);
+  background-image: url('../../../../images/btn-like.svg');
+  background-repeat: no-repeat;
+  background-size: contain;
+  opacity: 1;
+  transition: opacity 0.4s linear;
 }
 
 .card__button:hover {
-  opacity: 0.6;
+  opacity: 0.5;
   cursor: pointer;
 }

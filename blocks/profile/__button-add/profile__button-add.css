@@ -7,7 +7,7 @@
   border: none;
   background-color: rgba(255, 255, 255, 0);
   background-image: url('../../../images/btn-add.svg');
-  transition: opacity 0.4s;
+  transition: opacity 0.4s linear;
   margin-left: 30px;
 }
 

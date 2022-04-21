@@ -23,7 +23,6 @@
 @import url('../blocks/card/__info/card__info.css');
 @import url('../blocks/card/__title/card__title.css');
 @import url('../blocks/card/__button/card__button.css');
-@import url('../blocks/card/__button/_type/card__button_type_like.css');
 
 @import url('../blocks/footer/footer.css');
 @import url('../blocks/footer/__copyright/footer__copyright.css');

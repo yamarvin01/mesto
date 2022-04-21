@@ -2,9 +2,9 @@
   grid-area: subtitle;
   align-self: start;
   font-size: 18px;
+  line-height: 22px;
   padding-top: 10px;
   margin: 0;
-
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
@@ -15,6 +15,7 @@
     width: 100%;
     padding: 14px 0 0 0;
     font-size: 14px;
+    line-height: 17px;
     text-align: center;
   }
 }
