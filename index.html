@@ -27,7 +27,7 @@
             alt="Аватарка"
           />
           <div class="profile__edit">
-            <h1 class="profile__title">Жак-Ив КустоЖак-Ив КустоЖак-Ив Кусто</h1>
+            <h1 class="profile__title">Жак-Ив Кусто</h1>
             <button
               class="profile__button-edit"
               type="button"
@@ -42,103 +42,8 @@
           ></button>
         </section>
 
-        <!-- Todo: Карточки дублируются: вынести в общий template -->
         <section class="cards">
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/img-borovsk.jpeg"
-              alt="Иллюстрация достопримечательности"
-            />
-            <div class="card__info">
-              <h2 class="card__title">КарачаевскКарачаевскКарачаевскКарачаевск</h2>
-              <button
-                class="card__button"
-                type="button"
-                aria-label="Кнопка лайк"
-              ></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/img-kazan.jpeg"
-              alt="Иллюстрация достопримечательности"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Казань</h2>
-              <button
-                class="card__button"
-                type="button"
-                aria-label="Кнопка лайк"
-              ></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/img-kirzach.jpeg"
-              alt="Иллюстрация достопримечательности"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Киржач</h2>
-              <button
-                class="card__button"
-                type="button"
-                aria-label="Кнопка лайк"
-              ></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/img-kolomenskoye.jpeg"
-              alt="Иллюстрация достопримечательности"
-            />
-            <div class="card__info">
-              <h2 class="card__title">КоломенскоеКоломенскоеКоломенскоеКоломенское</h2>
-              <button
-                class="card__button"
-                type="button"
-                aria-label="Кнопка лайк"
-              ></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/img-neftekamsk.jpeg"
-              alt="Иллюстрация достопримечательности"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Нефтекамск</h2>
-              <button
-                class="card__button"
-                type="button"
-                aria-label="Кнопка лайк"
-              ></button>
-            </div>
-          </article>
-
-          <article class="card">
-            <img
-              class="card__image"
-              src="./images/img-zvenigorod.jpeg"
-              alt="Иллюстрация достопримечательности"
-            />
-            <div class="card__info">
-              <h2 class="card__title">Звенигород</h2>
-              <button
-                class="card__button"
-                type="button"
-                aria-label="Кнопка лайк"
-              ></button>
-            </div>
-          </article>
+          <!-- Место под карточки -->
         </section>
       </main>
 
@@ -146,37 +51,96 @@
         <p class="footer__copyright">&copy; 2020 Mesto Russia</p>
       </footer>
 
-      <div class="popup">
-        <div class="popup__container">
+      <div class="popup popup_light popup_type_edit-profile">
+        <div class="popup__container popup__container_type_form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <form class="popup__form" name="editProfile">
+          <button
+            class="popup__button popup__button_type_close"
+            type="button"
+          ></button>
+
+          <form class="popup__form popup__form_type_edit-profile" name="editProfile">
             <input
               class="popup__input popup__input_type_name"
               type="text"
               name="fullName"
-              placeholder="Имя"
-            />
+              placeholder="Имя"/>
             <input
               class="popup__input popup__input_type_text"
               type="text"
               name="aboutYourSelf"
-              placeholder="О себе"
-            />
+              placeholder="О себе"/>
             <button
               class="popup__button popup__button_type_submit"
-              type="submit"
-            >
+              type="submit">
               Сохранить
             </button>
           </form>
+
+        </div>
+      </div>
+
+      <div class="popup popup_light popup_type_add-card">
+        <div class="popup__container popup__container_type_form">
+          <h2 class="popup__title">Новое место</h2>
+          <button
+            class="popup__button popup__button_type_close"
+            type="button"
+          ></button>
+
+          <form class="popup__form popup__form_type_add-card" name="newCard">
+            <input
+              class="popup__input popup__input_type_place"
+              type="text"
+              name="place"
+              placeholder="Название"/>
+            <input
+              class="popup__input popup__input_type_link"
+              type="url"
+              name="link"
+              placeholder="Ссылка на картинку"/>
+            <button
+              class="popup__button popup__button_type_submit"
+              type="submit">
+              Сохранить
+            </button>
+          </form>
+
+        </div>
+      </div>
+
+      <div class="popup popup_dark popup_type_image">
+        <div class="popup__container popup__container_type_image">
+          <img class="popup__image" alt="Иллюстрация природы">
+          <p class="popup__text"></p>
           <button
             class="popup__button popup__button_type_close"
             type="button"
           ></button>
         </div>
       </div>
+
     </div>
 
+    <template id="card-template">
+      <article class="card">
+        <img class="card__image"
+          alt="Изображение достопримечательности">
+        <div class="card__info">
+          <h2 class="card__title"></h2>
+          <button class="card__button card__button_type_like card__button_type_like"
+            type="button"
+            aria-label="Кнопка лайк">
+          </button>
+        </div>
+        <button class="card__button card__button_type_delete"
+          type="button"
+          aria-label="Кнопка удаления">
+        </button>
+      </article>
+    </template>
+
     <script src="./scripts/script.js"></script>
+
   </body>
 </html>

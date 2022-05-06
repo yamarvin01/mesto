@@ -1,0 +1,5 @@
+.card__button_type_like {
+  min-width: 22px;
+  height: 20px;
+  background-image: url('../../../../images/btn-like.svg');
+}
