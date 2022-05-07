@@ -18,6 +18,7 @@ const popupImg = document.querySelector('.popup_type_image');
 const btnClosePopupImg = popupImg.querySelector('.popup__button_type_close');
 
 // Фнкция создания карточки
+// Ожидает карточку ввиде объекта {name: 'some name', link: 'https://somelink'}
 function createCard(card) {
   const newCard = cardTemplate.querySelector('.card').cloneNode(true);
   const newCardImage = newCard.querySelector('.card__image');
@@ -34,6 +35,7 @@ function createCard(card) {
 }
 
 // Функция добавления карточки на страницу
+// Ожидает карточку ввиде объекта {name: 'some Name', link: 'https://somelink'}
 function addCardHtml(card) {
     const newCard = createCard(card);
     cardsHtml.prepend(newCard);
@@ -47,7 +49,7 @@ function addCardsHtml(cards) {
 }
 
 // Функция добавления на страницу информации об авторе
-function formSubmitHandler(event) {
+function submitEditProfile(event) {
   event.preventDefault();
   titleProfile.textContent = nameInput.value;
   subtitleProfile.textContent = jobInput.value;
@@ -116,7 +118,7 @@ function closePopup(event) {
   popup.classList.remove('popup_opened');
 }
 
-formEditProfile.addEventListener('submit', formSubmitHandler);
+formEditProfile.addEventListener('submit', submitEditProfile);
 formCard.addEventListener('submit', submitNewCard);
 btnEditProfile.addEventListener('click', openEditForm);
 btnAddCard.addEventListener('click', openPopupAddCard);
