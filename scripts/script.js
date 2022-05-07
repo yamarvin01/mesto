@@ -8,7 +8,7 @@ const btnClosePopupEditProfile = popupEditProfile.querySelector('.popup__button_
 const formEditProfile = popupEditProfile.querySelector('.popup__form_type_edit-profile');
 const nameInput = formEditProfile.querySelector('.popup__input_type_name');
 const jobInput = formEditProfile.querySelector('.popup__input_type_text');
-const addCardForm = document.querySelector('.popup__form_type_add-card');
+const cardForm = document.querySelector('.popup__form_type_add-card');
 const popupAddCard = document.querySelector('.popup_type_add-card');
 const btnAddCard = profile.querySelector(".profile__button-add");
 const btnClosePopupAddCard = popupAddCard.querySelector('.popup__button_type_close');
@@ -20,11 +20,16 @@ const btnClosePopupImg = popupImg.querySelector('.popup__button_type_close');
 // Фнкция создания карточки
 function createCard(card) {
   const newCard = cardTemplate.querySelector('.card').cloneNode(true);
-  newCard.querySelector('.card__image').src = card.link;
-  newCard.querySelector('.card__title').textContent = card.name;
-  newCard.querySelector('.card__button_type_like').addEventListener('click', setActiveLikeBtn);
-  newCard.querySelector('.card__button_type_delete').addEventListener('click', deleteCard);
-  newCard.querySelector('.card__image').addEventListener('click', showImg);
+  const newCardImage = newCard.querySelector('.card__image');
+  const newCardTitle = newCard.querySelector('.card__title');
+  const newCardLikeBtn = newCard.querySelector('.card__button_type_like');
+  const newCardDeleteBtn = newCard.querySelector('.card__button_type_delete');
+  newCardImage.src = card.link;
+  newCardImage.alt = 'Иллюстрация природы: ' + card.name;
+  newCardTitle.textContent = card.name;
+  newCardLikeBtn.addEventListener('click', setActiveLikeBtn);
+  newCardDeleteBtn.addEventListener('click', deleteCard);
+  newCardImage.addEventListener('click', () => showImg(newCard));
   return newCard;
 }
 
@@ -54,11 +59,9 @@ function submitNewCard(event) {
   event.preventDefault();
   const cardLink = event.target.querySelector('.popup__input_type_link').value;
   const cardName = event.target.querySelector('.popup__input_type_place').value;
-  if (cardLink !== '' && cardName !== '') {
-    const newCard = {name: cardName, link: cardLink};
-    addCardHtml(newCard);
-    event.target.reset();
-  }
+  const newCard = {name: cardName, link: cardLink};
+  addCardHtml(newCard);
+  cardForm.reset();
   closePopupAddCard();
 }
 
@@ -78,15 +81,20 @@ function setActiveLikeBtn(event) {
 }
 
 // Фнкция вывода изображения на полный экран
-function showImg(event) {
+function showImg(card) {
   openPopupImg();
-  const imageLink = event.target.currentSrc;
-  const imageTitle = event.target.nextElementSibling.querySelector('.card__title').textContent;;
-  popupImg.querySelector('.popup__image').src = imageLink;
-  popupImg.querySelector('.popup__text').textContent = imageTitle;
+  const cardImage = card.querySelector('.card__image').src;
+  const cardTitle = card.querySelector('.card__title').textContent;
+  const popupImage = popupImg.querySelector('.popup__image');
+  const popupTitle = popupImg.querySelector('.popup__text');
+  popupImage.src = cardImage;
+  popupTitle.textContent = cardTitle;
+  popupImage.alt = '';
+  popupImage.alt = 'Иллюстрация природы: ' + cardTitle;
 }
 
-function openEditForm() {
+function openEditForm(event) {
+  console.log(event);
   openPopupEditProfile();
   nameInput.value = titleProfile.textContent;
   jobInput.value = subtitleProfile.textContent;
@@ -116,12 +124,14 @@ function closePopupImg() {
   toggleModal(popupImg);
 }
 
+
+
 btnEditProfile.addEventListener('click', openEditForm);
 btnClosePopupEditProfile.addEventListener('click', closePopupEditProfile);
 formEditProfile.addEventListener('submit', formSubmitHandler);
 btnAddCard.addEventListener('click', openPopupAddCard);
 btnClosePopupAddCard.addEventListener('click', closePopupAddCard);
-addCardForm.addEventListener('submit', submitNewCard);
+cardForm.addEventListener('submit', submitNewCard);
 btnClosePopupImg.addEventListener('click', closePopupImg);
 
 
