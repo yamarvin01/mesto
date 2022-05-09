@@ -16,9 +16,11 @@ const cardsHtml = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
 const popupImg = document.querySelector('.popup_type_image');
 const btnClosePopupImg = popupImg.querySelector('.popup__button_type_close');
+const imageLinkInput = formCard.querySelector('.popup__input_type_link');
+const imageNameInput = formCard.querySelector('.popup__input_type_place');
 
 // Фнкция создания карточки
-// Ожидает карточку ввиде объекта {name: 'some name', link: 'https://somelink'}
+// Ожидает карточку ввиде объекта {name: 'someName', link: 'https://somelink.jpg'}
 function createCard(card) {
   const newCard = cardTemplate.querySelector('.card').cloneNode(true);
   const newCardImage = newCard.querySelector('.card__image');
@@ -30,12 +32,11 @@ function createCard(card) {
   newCardTitle.textContent = card.name;
   newCardLikeBtn.addEventListener('click', setActiveLikeBtn);
   newCardDeleteBtn.addEventListener('click', deleteCard);
-  newCardImage.addEventListener('click', () => showImg(newCard));
+  newCardImage.addEventListener('click', () => showImg(card));
   return newCard;
 }
 
 // Функция добавления карточки на страницу
-// Ожидает карточку ввиде объекта {name: 'some Name', link: 'https://somelink'}
 function addCardHtml(card) {
     const newCard = createCard(card);
     cardsHtml.prepend(newCard);
@@ -59,8 +60,8 @@ function submitEditProfile(event) {
 // Функция добавления на страницу и отправки на сервер новой карточки
 function submitNewCard(event) {
   event.preventDefault();
-  const cardLink = event.target.querySelector('.popup__input_type_link').value;
-  const cardName = event.target.querySelector('.popup__input_type_place').value;
+  const cardLink = imageLinkInput.value;
+  const cardName = imageNameInput.value;
   const newCard = {name: cardName, link: cardLink};
   addCardHtml(newCard);
   formCard.reset();
@@ -84,14 +85,12 @@ function setActiveLikeBtn(event) {
 
 // Фнкция вывода изображения на полный экран
 function showImg(card) {
-  const cardImage = card.querySelector('.card__image').src;
-  const cardTitle = card.querySelector('.card__title').textContent;
   const popupImage = popupImg.querySelector('.popup__image');
   const popupTitle = popupImg.querySelector('.popup__text');
-  popupImage.src = cardImage;
-  popupTitle.textContent = cardTitle;
+  popupImage.src = card.link;
+  popupTitle.textContent = card.name;
   popupImage.alt = '';
-  popupImage.alt = 'Иллюстрация природы: ' + cardTitle;
+  popupImage.alt = 'Иллюстрация природы: ' + card.name;
   openPopupImg();
 }
 
