@@ -10,8 +10,10 @@ const toggleButtonState = (inputList, buttonElement) => {
   // Если есть хотя бы один невалидный инпут
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add('popup__button_inactive');
+    buttonElement.setAttribute('disabled', true);
   } else {
     buttonElement.classList.remove('popup__button_inactive');
+    buttonElement.removeAttribute('disabled', true);
   }
 };
 
