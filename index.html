@@ -59,26 +59,30 @@
           <form class="popup__form popup__form_type_edit-profile"
             name="editProfile"
             novalidate>
-            <input
-              id="name-input"
-              class="popup__input popup__input_type_name"
-              type="text"
-              name="name"
-              placeholder="Имя"
-              minlength="2"
-              maxlength="40"
-              required/>
-            <span class="name-input-error popup__error">Необходимо заполнить данное поле</span>
-            <input
-              id="aboutYourSelf-input"
-              class="popup__input popup__input_type_text"
-              type="text"
-              name="aboutYourSelf"
-              placeholder="О себе"
-              minlength="2"
-              maxlength="200"
-              required/>
-            <span class="aboutYourSelf-input-error popup__error">Необходимо заполнить данное поле</span>
+            <label class="popup__field" for="name-input">
+              <input
+                id="name-input"
+                class="popup__input popup__input_type_name"
+                type="text"
+                name="name"
+                placeholder="Имя"
+                minlength="2"
+                maxlength="40"
+                required/>
+              <span class="name-input-error popup__error">Необходимо заполнить данное поле</span>
+            </label>
+            <label class="popup__field" for="aboutYourSelf-input">
+              <input
+                id="aboutYourSelf-input"
+                class="popup__input popup__input_type_text"
+                type="text"
+                name="aboutYourSelf"
+                placeholder="О себе"
+                minlength="2"
+                maxlength="200"
+                required/>
+              <span class="aboutYourSelf-input-error popup__error">Необходимо заполнить данное поле</span>
+            </label>
             <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
           </form>
 
@@ -93,24 +97,28 @@
           <form class="popup__form popup__form_type_add-card"
             name="newCard"
             novalidate>
-            <input
-              id="place-input"
-              class="popup__input popup__input_type_place"
-              type="text"
-              name="place"
-              placeholder="Название"
-              minlength="2"
-              maxlength="30"
-              required/>
-            <span class="place-input-error popup__error">Необходимо заполнить данное поле</span>
-            <input
-              id="link-input"
-              class="popup__input popup__input_type_link"
-              type="url"
-              name="link"
-              placeholder="Ссылка на картинку"
-              required/>
-            <span class="link-input-error popup__error">Необходимо заполнить данное поле</span>
+            <label class="popup__field" for="place-input">
+              <input
+                id="place-input"
+                class="popup__input popup__input_type_place"
+                type="text"
+                name="place"
+                placeholder="Название"
+                minlength="2"
+                maxlength="30"
+                required/>
+              <span class="place-input-error popup__error">Необходимо заполнить данное поле</span>
+            </label>
+            <label class="popup__field" for="link-input">
+              <input
+                id="link-input"
+                class="popup__input popup__input_type_link"
+                type="url"
+                name="link"
+                placeholder="Ссылка на картинку"
+                required/>
+              <span class="link-input-error popup__error">Необходимо заполнить данное поле</span>
+            </label>
             <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
           </form>
 

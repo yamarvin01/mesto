@@ -1,22 +1,3 @@
-// // Константы формы редактирования профиля
-// const formEditProfile = document.forms.editProfile;
-// const nameInput = formEditProfile.elements.fullName;
-// const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
-
-// // Константы форма добавления новой карточки
-// const formCard = document.forms.newCard;
-// const imageNameInput = formCard.elements.place;
-// const imageLinkInput = formCard.elements.link;
-
-// enableValidation({
-//   formSelector: '.popup__form',
-//   inputSelector: '.popup__input',
-//   submitButtonSelector: '.popup__button',
-//   inactiveButtonClass: 'popup__button_disabled',
-//   inputErrorClass: 'popup__input_type_error',
-//   errorClass: 'popup__error_visible'
-// });
-
 // Функция проверяет наличие невалидного поля
 const hasInvalidInput = (inputList) => {
   return inputList.some((inputElement) => {
