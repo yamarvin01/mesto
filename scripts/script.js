@@ -3,8 +3,12 @@ const profile = content.querySelector('.profile');
 const titleProfile = profile.querySelector('.profile__title');
 const subtitleProfile = profile.querySelector('.profile__subtitle');
 const btnEditProfile = profile.querySelector('.profile__button-edit');
+
+// Константы popup-ов
+const popups = document.querySelectorAll('.popup');
 const popupEditProfile = document.querySelector('.popup_type_edit-profile');
-const btnClosePopupEditProfile = popupEditProfile.querySelector('.popup__button_type_close');
+const popupAddCard = document.querySelector('.popup_type_add-card');
+const popupImg = document.querySelector('.popup_type_image');
 
 // Константы формы редактирования профиля
 const formEditProfile = document.forms.editProfile;
@@ -16,13 +20,12 @@ const formCard = document.forms.newCard;
 const imageNameInput = formCard.elements.place;
 const imageLinkInput = formCard.elements.link;
 
-const popupAddCard = document.querySelector('.popup_type_add-card');
 const btnAddCard = profile.querySelector(".profile__button-add");
-const btnClosePopupAddCard = popupAddCard.querySelector('.popup__button_type_close');
 const cardsHtml = document.querySelector('.cards');
 const cardTemplate = document.querySelector('#card-template').content;
-const popupImg = document.querySelector('.popup_type_image');
-const btnClosePopupImg = popupImg.querySelector('.popup__button_type_close');
+
+const popupImage = popupImg.querySelector('.popup__image');
+const popupTitle = popupImg.querySelector('.popup__text');
 
 // Фнкция создания карточки
 // Ожидает карточку ввиде объекта {name: 'someName', link: 'https://somelink.jpg'}
@@ -90,8 +93,6 @@ function setActiveLikeBtn(event) {
 
 // Фнкция вывода изображения на полный экран
 function showImg(card) {
-  const popupImage = popupImg.querySelector('.popup__image');
-  const popupTitle = popupImg.querySelector('.popup__text');
   popupImage.src = card.link;
   popupTitle.textContent = card.name;
   popupImage.alt = '';
@@ -100,9 +101,10 @@ function showImg(card) {
 }
 
 // Функция закрытия popup при нажатии ESC
-function escClose(evt) {
-  if (evt.key === 'Escape') {
-    closePopup();
+function handleEscKey(evt) {
+  const openedPopup = document.querySelector('.popup_opened');
+  if (evt.key === 'Escape' && openedPopup) {
+    closePopup(openedPopup);
   }
 }
 
@@ -114,53 +116,43 @@ function openEditForm(event) {
 
 function openPopupEditProfile() {
   toggleModal(popupEditProfile);
+  document.addEventListener('keydown', handleEscKey);
 }
 
 function openPopupAddCard() {
   toggleModal(popupAddCard);
+  document.addEventListener('keydown', handleEscKey);
 }
 
 function openPopupImg() {
   toggleModal(popupImg);
+  document.addEventListener('keydown', handleEscKey);
 }
 
-function closePopup(event) {
-  const openedPopup = document.querySelector('.popup_opened');
-  openedPopup.classList.remove('popup_opened');
+function closePopup(popup) {
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', handleEscKey);
 }
+
+// Функция добавляет события закрытия popup-ов
+const setCloseEventListenersToPopups = (popups) => {
+  popups.forEach((popup) => {
+      popup.addEventListener('mousedown', (evt) => {
+          if (evt.target.classList.contains('popup_opened')) {
+            closePopup(popup);
+          }
+          if (evt.target.classList.contains('popup__button_type_close')) {
+            closePopup(popup);
+          }
+      });
+  });
+}
+setCloseEventListenersToPopups(popups);
 
 formEditProfile.addEventListener('submit', submitEditProfile);
 formCard.addEventListener('submit', submitNewCard);
 btnEditProfile.addEventListener('click', openEditForm);
 btnAddCard.addEventListener('click', openPopupAddCard);
-
-btnClosePopupAddCard.addEventListener('click', closePopup);
-btnClosePopupEditProfile.addEventListener('click', closePopup);
-btnClosePopupImg.addEventListener('click', closePopup);
-
-document.addEventListener('keydown', escClose);
-
-// Функции и обработчики событий для скрытия popup при клике снаружи
-function clickOverlayEditProfile(event) {
-  if (event.target === event.currentTarget) {
-    toggleModal(popupEditProfile);
-  }
-}
-popupEditProfile.addEventListener('click', clickOverlayEditProfile);
-
-function clickOverlayAddCard(event) {
-  if (event.target === event.currentTarget) {
-    toggleModal(popupAddCard);
-  }
-}
-popupAddCard.addEventListener('click', clickOverlayAddCard);
-
-function clickOverlayImg(event) {
-  if (event.target === event.currentTarget) {
-    toggleModal(popupImg);
-  }
-}
-popupImg.addEventListener("click", clickOverlayImg);
 
 const initialCards = [
   {
