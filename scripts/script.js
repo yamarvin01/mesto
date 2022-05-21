@@ -57,13 +57,24 @@ function addCardsHtml(cards) {
   });
 }
 
+// Функция удаления карточки
+function deleteCard(event) {
+  event.target.closest('.card').remove();
+}
+
+// Функция лайк карточке
+function setActiveLikeBtn(event) {
+  event.target.classList.toggle('card__button_status_active');
+}
+
 // Функция добавления на страницу информации об авторе
 function submitEditProfile(event) {
   event.preventDefault();
   titleProfile.textContent = nameInput.value;
   subtitleProfile.textContent = aboutYourSelfInput.value;
-  closePopup(event);
+  closePopup(popupEditProfile);
 }
+formEditProfile.addEventListener('submit', submitEditProfile);
 
 // Функция добавления на страницу и отправки на сервер новой карточки
 function submitNewCard(event) {
@@ -73,23 +84,9 @@ function submitNewCard(event) {
   const newCard = {name: cardName, link: cardLink};
   addCardHtml(newCard);
   formCard.reset();
-  closePopup(event);
+  closePopup(popupAddCard);
 }
-
-// Функция удаления карточки
-function deleteCard(event) {
-  event.target.closest('.card').remove();
-}
-
-// Функция toggle (открытия/закрытия popup)
-function toggleModal(modal) {
-  modal.classList.toggle('popup_opened');
-}
-
-// Функция лайк карточке
-function setActiveLikeBtn(event) {
-  event.target.classList.toggle('card__button_status_active');
-}
+formCard.addEventListener('submit', submitNewCard);
 
 // Фнкция вывода изображения на полный экран
 function showImg(card) {
@@ -97,35 +94,20 @@ function showImg(card) {
   popupTitle.textContent = card.name;
   popupImage.alt = '';
   popupImage.alt = 'Иллюстрация природы: ' + card.name;
-  openPopupImg();
-}
-
-// Функция закрытия popup при нажатии ESC
-function handleEscKey(evt) {
-  const openedPopup = document.querySelector('.popup_opened');
-  if (evt.key === 'Escape' && openedPopup) {
-    closePopup(openedPopup);
-  }
+  openPopup(popupImg);
 }
 
 function openEditForm(event) {
   nameInput.value = titleProfile.textContent;
   aboutYourSelfInput.value = subtitleProfile.textContent;
-  openPopupEditProfile();
+  openPopup(popupEditProfile);
 }
+btnEditProfile.addEventListener('click', openEditForm);
 
-function openPopupEditProfile() {
-  toggleModal(popupEditProfile);
-  document.addEventListener('keydown', handleEscKey);
-}
+btnAddCard.addEventListener('click', () => openPopup(popupAddCard));
 
-function openPopupAddCard() {
-  toggleModal(popupAddCard);
-  document.addEventListener('keydown', handleEscKey);
-}
-
-function openPopupImg() {
-  toggleModal(popupImg);
+function openPopup(popup) {
+  popup.classList.add('popup_opened');
   document.addEventListener('keydown', handleEscKey);
 }
 
@@ -149,10 +131,13 @@ const setCloseEventListenersToPopups = (popups) => {
 }
 setCloseEventListenersToPopups(popups);
 
-formEditProfile.addEventListener('submit', submitEditProfile);
-formCard.addEventListener('submit', submitNewCard);
-btnEditProfile.addEventListener('click', openEditForm);
-btnAddCard.addEventListener('click', openPopupAddCard);
+// Функция закрытия popup при нажатии ESC
+function handleEscKey(evt) {
+  if (evt.key === 'Escape' && openedPopup) {
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
 
 const initialCards = [
   {
