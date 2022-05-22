@@ -15,10 +15,11 @@ const formEditProfile = document.forms.editProfile;
 const nameInput = formEditProfile.elements.name;
 const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
 
-// Константы форма добавления новой карточки
+// Константы формы добавления новой карточки
 const formCard = document.forms.newCard;
 const imageNameInput = formCard.elements.place;
 const imageLinkInput = formCard.elements.link;
+const formCardSubmitBtn = formCard.querySelector('.popup__button_type_submit');
 
 const btnAddCard = profile.querySelector(".profile__button-add");
 const cardsHtml = document.querySelector('.cards');
@@ -83,6 +84,8 @@ function submitNewCard(event) {
   const cardName = imageNameInput.value;
   const newCard = {name: cardName, link: cardLink};
   addCardHtml(newCard);
+  formCardSubmitBtn.setAttribute('disabled', true);
+  formCardSubmitBtn.classList.add('popup__button_inactive');
   formCard.reset();
   closePopup(popupAddCard);
 }
@@ -133,9 +136,9 @@ setCloseEventListenersToPopups(popups);
 
 // Функция закрытия popup при нажатии ESC
 function handleEscKey(evt) {
-  if (evt.key === 'Escape' && openedPopup) {
+  if (evt.key === 'Escape') {
     const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
+    openedPopup && closePopup(openedPopup);
   }
 }
 
