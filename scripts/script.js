@@ -28,46 +28,6 @@ const cardTemplate = document.querySelector("#card-template").content; //Мож�
 const popupImage = popupImg.querySelector(".popup__image");
 const popupTitle = popupImg.querySelector(".popup__text");
 
-// Фнкция создания карточки
-// Ожидает карточку ввиде объекта {name: 'someName', link: 'https://somelink.jpg'}
-function createCard(card) {
-  const newCard = cardTemplate.querySelector(".card").cloneNode(true); //Можно удалить позже
-  const newCardImage = newCard.querySelector(".card__image");
-  const newCardTitle = newCard.querySelector(".card__title");
-  const newCardLikeBtn = newCard.querySelector(".card__button_type_like");
-  const newCardDeleteBtn = newCard.querySelector(".card__button_type_delete");
-  newCardImage.src = card.link;
-  newCardImage.alt = "Иллюстрация природы: " + card.name;
-  newCardTitle.textContent = card.name;
-  newCardLikeBtn.addEventListener("click", setActiveLikeBtn);
-  newCardDeleteBtn.addEventListener("click", deleteCard);
-  newCardImage.addEventListener("click", () => showImg(card));
-  return newCard;
-}
-
-// Функция добавления карточки на страницу
-function addCardHtml(card) {
-  const newCard = createCard(card);
-  cardsHtml.prepend(newCard);
-}
-
-// Функция добавления массива карточек на страницу
-function addCardsHtml(cards) {
-  cards.forEach((card) => {
-    addCardHtml(card);
-  });
-}
-
-// Функция удаления карточки
-function deleteCard(event) {
-  event.target.closest(".card").remove();
-}
-
-// Функция лайк карточке
-function setActiveLikeBtn(event) {
-  event.target.classList.toggle("card__button_status_active");
-}
-
 // Функция добавления на страницу информации об авторе
 function submitEditProfile(event) {
   event.preventDefault();
@@ -82,8 +42,9 @@ function submitNewCard(event) {
   event.preventDefault();
   const cardLink = imageLinkInput.value;
   const cardName = imageNameInput.value;
-  const newCard = { name: cardName, link: cardLink };
-  addCardHtml(newCard);
+  const card = new Card({name: cardName, link: cardLink}, "#card-template");
+  const cardElement = card.generateCard();
+  document.querySelector('.cards').prepend(cardElement);
   formCardSubmitBtn.setAttribute("disabled", true);
   formCardSubmitBtn.classList.add("popup__button_inactive");
   formCard.reset();
@@ -169,8 +130,6 @@ const initialCards = [
   },
 ];
 
-addCardsHtml(initialCards);
-
 class Card {
   constructor(data, cardSelector) {
     this._title = data.name;
@@ -218,6 +177,7 @@ class Card {
     this._element = this._getTemplate();
     this._element.querySelector('.card__title').textContent = this._title;
     this._element.querySelector('.card__image').src = this._image;
+    this._element.querySelector('.card__image').alt = "Иллюстрация природы: " + this._title;
     this._setEventListeners();
     return this._element;
   }
