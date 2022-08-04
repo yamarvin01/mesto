@@ -2,12 +2,8 @@ export class FormValidator {
   constructor(settings, formElement) {
     this._settings = settings;
     this._formElement = formElement;
-    this._inputList = Array.from(
-      this._formElement.querySelectorAll(settings.inputSelector)
-    );
-    this._buttonElement = this._formElement.querySelector(
-      settings.submitButtonSelector
-    );
+    this._inputList = Array.from(this._formElement.querySelectorAll(settings.inputSelector));
+    this._buttonElement = this._formElement.querySelector(settings.submitButtonSelector);
   }
 
   _hasInvalidInput = () => {

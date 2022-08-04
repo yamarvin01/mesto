@@ -4,6 +4,14 @@ import { FormValidator } from './FormValidator.js';
 export const popupImg = document.querySelector(".popup_type_image");
 export const popupImage = popupImg.querySelector(".popup__image");
 export const popupTitle = popupImg.querySelector(".popup__text");
+export const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button_type_submit',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_active'
+}
 
 const content = document.querySelector(".content");
 const profile = content.querySelector(".profile");
@@ -101,15 +109,6 @@ initialCards.forEach((item) => {
   const cardElement = card.generateCard();
   document.body.querySelector(".cards").append(cardElement);
 });
-
-export const settings = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button_type_submit',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_active'
-}
 
 // Функция, которая находит все формы на странице
 const getForms = (settings) => {
