@@ -34,13 +34,16 @@ const formCard = document.forms.newCard;
 const imageNameInput = formCard.elements.place;
 const imageLinkInput = formCard.elements.link;
 
+// Экземпляры классов для валидации
+const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
+const formValidatorAddCard = new FormValidator(validationConfig, formCard);
+
 // Функция добавления на страницу информации об авторе
 function handleSubmitEditProfile(event) {
   event.preventDefault();
   titleProfile.textContent = nameInput.value;
   subtitleProfile.textContent = aboutYourSelfInput.value;
   closePopup(popupEditProfile);
-  const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
   formValidatorEditProfile.disableSubmitButton();
 }
 
@@ -52,7 +55,6 @@ function handleSubmitAddCard(event) {
   const card = new Card({ name: cardName, link: cardLink }, "#card-template");
   const cardElement = card.generateCard();
   cardsHtml.prepend(cardElement);
-  const formValidatorAddCard = new FormValidator(validationConfig, formCard);
   formValidatorAddCard.disableSubmitButton();
   formCard.reset();
   closePopup(popupAddCard);
