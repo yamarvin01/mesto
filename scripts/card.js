@@ -1,4 +1,4 @@
-import { popupImage, popupTitle, openPopup, popupImg } from "./script.js";
+import { popupImage, popupImg, popupTitle, openPopup } from "./utils.js";
 
 export class Card {
   constructor(data, cardSelector) {
@@ -19,7 +19,7 @@ export class Card {
     popupImage.src = this._image;
     popupTitle.textContent = this._title;
     popupImage.alt = "";
-    popupImage.alt = "Иллюстрация природы: " + this._title;
+    popupImage.alt = "Изображение: " + this._title;
     openPopup(popupImg);
   }
 
@@ -31,6 +31,7 @@ export class Card {
 
   _handleCardDeleteClick() {
     this._element.remove();
+    this._element = null;
   }
 
   _setEventListeners() {
@@ -56,7 +57,7 @@ export class Card {
     this._element.querySelector(".card__title").textContent = this._title;
     this._element.querySelector(".card__image").src = this._image;
     this._element.querySelector(".card__image").alt =
-      "Иллюстрация природы: " + this._title;
+      "Изображение: " + this._title;
     this._setEventListeners();
     return this._element;
   }
