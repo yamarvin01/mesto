@@ -1,5 +1,9 @@
-import { Card } from "./card.js";
+import { Card } from "./Card.js";
 import { initialCards } from './data.js';
+import { FormValidator } from './FormValidator.js';
+export const popupImg = document.querySelector(".popup_type_image");
+export const popupImage = popupImg.querySelector(".popup__image");
+export const popupTitle = popupImg.querySelector(".popup__text");
 
 const content = document.querySelector(".content");
 const profile = content.querySelector(".profile");
@@ -11,7 +15,6 @@ const btnEditProfile = profile.querySelector(".profile__button-edit");
 const popups = document.querySelectorAll(".popup");
 const popupEditProfile = document.querySelector(".popup_type_edit-profile");
 const popupAddCard = document.querySelector(".popup_type_add-card");
-export const popupImg = document.querySelector(".popup_type_image");
 
 // Константы формы редактирования профиля
 const formEditProfile = document.forms.editProfile;
@@ -25,9 +28,6 @@ const imageLinkInput = formCard.elements.link;
 const formCardSubmitBtn = formCard.querySelector(".popup__button_type_submit");
 
 const btnAddCard = profile.querySelector(".profile__button-add");
-
-export const popupImage = popupImg.querySelector(".popup__image");
-export const popupTitle = popupImg.querySelector(".popup__text");
 
 // Функция добавления на страницу информации об авторе
 function submitEditProfile(event) {
@@ -95,8 +95,30 @@ function handleEscKey(evt) {
   }
 }
 
+// Метод пробегает по списку карточек и добавляет их на страницу
 initialCards.forEach((item) => {
   const card = new Card(item, "#card-template");
   const cardElement = card.generateCard();
   document.body.querySelector(".cards").append(cardElement);
+});
+
+export const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__button_type_submit',
+  inactiveButtonClass: 'popup__button_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__error_active'
+}
+
+// Функция, которая находит все формы на странице
+const getForms = (settings) => {
+  return Array.from(document.querySelectorAll(settings.formSelector));
+}
+
+const forms = getForms(settings);
+
+forms.forEach((formElement) => {
+  const formValidator = new FormValidator(settings, formElement);
+  formValidator.enableValidation();
 });
