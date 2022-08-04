@@ -1,4 +1,6 @@
-export const popupImg = document.querySelector(".popup_type_image");
+export const popups = document.querySelectorAll(".popup");
+export const popupEditProfile = document.querySelector(".popup_type_edit-profile");
+export const popupAddCard = document.querySelector(".popup_type_add-card");export const popupImg = document.querySelector(".popup_type_image");
 export const popupImage = popupImg.querySelector(".popup__image");
 export const popupTitle = popupImg.querySelector(".popup__text");
 

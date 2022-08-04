@@ -1,7 +1,8 @@
 import { Card } from "./Card.js";
 import { initialCards } from './data.js';
 import { FormValidator } from './FormValidator.js';
-import { openPopup, closePopup } from "./utils.js";
+import { popups, popupEditProfile, popupAddCard, openPopup, closePopup } from "./utils.js";
+
 const validationConfig = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
@@ -16,11 +17,6 @@ const profile = content.querySelector(".profile");
 const titleProfile = profile.querySelector(".profile__title");
 const subtitleProfile = profile.querySelector(".profile__subtitle");
 const btnEditProfile = profile.querySelector(".profile__button-edit");
-
-// Константы popup-ов
-const popups = document.querySelectorAll(".popup");
-const popupEditProfile = document.querySelector(".popup_type_edit-profile");
-const popupAddCard = document.querySelector(".popup_type_add-card");
 
 // Константы формы редактирования профиля
 const formEditProfile = document.forms.editProfile;
