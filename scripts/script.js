@@ -25,7 +25,7 @@ const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
 const btnAddCard = profile.querySelector(".profile__button-add");
 
 // Константы формы добавления новой карточки
-const cardsHtml = document.querySelector(".cards");
+const cardsContainer = document.querySelector(".cards");
 const formCard = document.forms.newCard;
 const imageNameInput = formCard.elements.place;
 const imageLinkInput = formCard.elements.link;
@@ -50,7 +50,7 @@ function handleSubmitAddCard(event) {
   const cardName = imageNameInput.value;
   const card = new Card({ name: cardName, link: cardLink }, "#card-template");
   const cardElement = card.generateCard();
-  cardsHtml.prepend(cardElement);
+  cardsContainer.prepend(cardElement);
   formValidatorAddCard.disableSubmitButton();
   formCard.reset();
   closePopup(popupAddCard);
@@ -81,21 +81,17 @@ setCloseEventListenersToPopups(popups);
 initialCards.forEach((cardData) => {
   const card = new Card(cardData, "#card-template");
   const cardElement = card.generateCard();
-  document.body.querySelector(".cards").append(cardElement);
+  cardsContainer.append(cardElement);
 });
 
-// Функция, которая находит все формы на странице
-const getForms = (validationConfig) => {
-  return Array.from(document.querySelectorAll(validationConfig.formSelector));
+// Функция включает валидацию форм
+const enableFormValidation = () => {
+  formValidatorEditProfile.enableValidation();
+  formValidatorEditProfile.disableSubmitButton();
+  formValidatorAddCard.enableValidation();
+  formValidatorAddCard.disableSubmitButton();
 }
-
-const forms = getForms(validationConfig);
-
-forms.forEach((formElement) => {
-  const formValidator = new FormValidator(validationConfig, formElement);
-  formValidator.enableValidation();
-  formValidator.disableSubmitButton();
-});
+enableFormValidation();
 
 formEditProfile.addEventListener("submit", handleSubmitEditProfile);
 formCard.addEventListener("submit", handleSubmitAddCard);

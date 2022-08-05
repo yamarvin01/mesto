@@ -32,7 +32,9 @@ export class FormValidator {
 
   // Метод, который выводит сообщение об ошибке
   _showInputError = (inputElement, _errorMessage) => {
-    const _errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    const _errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
     inputElement.classList.add(this._settings.inputErrorClass);
     _errorElement.textContent = _errorMessage;
     _errorElement.classList.add(this._settings.errorClass);
@@ -40,7 +42,9 @@ export class FormValidator {
 
   // Метод, который скрывает сообщение об ошибке
   _hideInputError = (inputElement) => {
-    const _errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
+    const _errorElement = this._formElement.querySelector(
+      `.${inputElement.id}-error`
+    );
     inputElement.classList.remove(this._settings.inputErrorClass);
     _errorElement.classList.remove(this._settings.errorClass);
     _errorElement.textContent = "";
@@ -51,10 +55,9 @@ export class FormValidator {
     if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this._settings.inactiveButtonClass);
       this._buttonElement.disabled = true;
-      console.log(this._buttonElement);
     } else {
       this._buttonElement.classList.remove(this._settings.inactiveButtonClass);
-      this._buttonElement.removeAttribute('disabled');
+      this._buttonElement.removeAttribute("disabled");
     }
   };
 
