@@ -54,11 +54,16 @@
       <div class="popup popup_type_edit-profile">
         <div class="popup__container popup__container_type_form">
           <h2 class="popup__title">Редактировать профиль</h2>
-          <button class="popup__button popup__button_type_close" type="button"></button>
+          <button
+            class="popup__button popup__button_type_close"
+            type="button"
+          ></button>
 
-          <form class="popup__form popup__form_type_edit-profile"
+          <form
+            class="popup__form popup__form_type_edit-profile"
             name="editProfile"
-            novalidate>
+            novalidate
+          >
             <label class="popup__field" for="name-input">
               <input
                 id="name-input"
@@ -68,7 +73,8 @@
                 placeholder="Имя"
                 minlength="2"
                 maxlength="40"
-                required/>
+                required
+              />
               <span class="name-input-error popup__error"></span>
             </label>
             <label class="popup__field" for="aboutYourSelf-input">
@@ -80,23 +86,33 @@
                 placeholder="О себе"
                 minlength="2"
                 maxlength="200"
-                required/>
+                required
+              />
               <span class="aboutYourSelf-input-error popup__error"></span>
             </label>
-            <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
+            <button
+              class="popup__button popup__button_type_submit"
+              type="submit"
+            >
+              Сохранить
+            </button>
           </form>
-
         </div>
       </div>
 
       <div class="popup popup_type_add-card">
         <div class="popup__container popup__container_type_form">
           <h2 class="popup__title">Новое место</h2>
-          <button class="popup__button popup__button_type_close" type="button"></button>
+          <button
+            class="popup__button popup__button_type_close"
+            type="button"
+          ></button>
 
-          <form class="popup__form popup__form_type_add-card"
+          <form
+            class="popup__form popup__form_type_add-card"
             name="newCard"
-            novalidate>
+            novalidate
+          >
             <label class="popup__field" for="place-input">
               <input
                 id="place-input"
@@ -106,7 +122,8 @@
                 placeholder="Название"
                 minlength="2"
                 maxlength="30"
-                required/>
+                required
+              />
               <span class="place-input-error popup__error"></span>
             </label>
             <label class="popup__field" for="link-input">
@@ -116,18 +133,23 @@
                 type="url"
                 name="link"
                 placeholder="Ссылка на картинку"
-                required/>
+                required
+              />
               <span class="link-input-error popup__error"></span>
             </label>
-            <button class="popup__button popup__button_type_submit" type="submit">Сохранить</button>
+            <button
+              class="popup__button popup__button_type_submit"
+              type="submit"
+            >
+              Сохранить
+            </button>
           </form>
-
         </div>
       </div>
 
       <div class="popup popup_dark popup_type_image">
         <div class="popup__container popup__container_type_image">
-          <img class="popup__image" alt="Изображение">
+          <img class="popup__image" alt="Изображение" />
           <p class="popup__text"></p>
           <button
             class="popup__button popup__button_type_close"
@@ -135,28 +157,27 @@
           ></button>
         </div>
       </div>
-
     </div>
 
     <template id="card-template">
       <article class="card">
-        <img class="card__image"
-          alt="Изображение">
+        <img class="card__image" alt="Изображение" />
         <div class="card__info">
           <h2 class="card__title"></h2>
-          <button class="card__button card__button_type_like"
+          <button
+            class="card__button card__button_type_like"
             type="button"
-            aria-label="Кнопка лайк">
-          </button>
+            aria-label="Кнопка лайк"
+          ></button>
         </div>
-        <button class="card__button card__button_type_delete"
+        <button
+          class="card__button card__button_type_delete"
           type="button"
-          aria-label="Кнопка удаления">
-        </button>
+          aria-label="Кнопка удаления"
+        ></button>
       </article>
     </template>
 
     <script src="./scripts/pages/index.js" type="module"></script>
-
   </body>
 </html>

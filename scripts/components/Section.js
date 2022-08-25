@@ -5,19 +5,19 @@ export default class Section {
     this._container = document.querySelector(containerSelector); // селектор контейнера, в который нужно добавлять созданные элементы
   }
 
-  // публичный метод, который принимает DOM-элемент и добавляет его в контейнер методом append
+  // Публичный метод, который принимает DOM-элемент и добавляет его в контейнер методом append
   addItem(element) {
     this._container.append(element);
   }
 
-  // публичный метод, который принимает DOM-элемент и добавляет его в контейнер методом prepend
+  // Публичный метод, который принимает DOM-элемент и добавляет его в контейнер методом prepend
   addItemPrepend(element) {
     this._container.prepend(element);
   }
 
   // Вызывает для каждого элемента массива метод setItem
-  // публичный метод, который отвечает за отрисовку всех элементов
+  // Публичный метод, который отвечает за отрисовку всех элементов
   renderItems() {
-    this._items.forEach(item => this._renderer(item));
+    this._items.forEach((item) => this._renderer(item));
   }
 }
