@@ -2,7 +2,7 @@ import { initialCards } from '../data.js';
 import Card from "../components/Card.js";
 import Section from '../components/Section.js';
 import FormValidator from '../components/FormValidator.js';
-import { validationConfig } from '../utils/constants.js';
+import { validationConfig, formCard, imageNameInput, imageLinkInput } from '../utils/constants.js';
 import { popups, popupEditProfile, popupAddCard, openPopup, closePopup } from "../utils/utils.js";
 
 const content = document.querySelector(".content");
@@ -17,12 +17,6 @@ const nameInput = formEditProfile.elements.name;
 const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
 const btnAddCard = profile.querySelector(".profile__button-add");
 
-// Константы формы добавления новой карточки
-// const cardsContainer = document.querySelector(".cards");
-const formCard = document.forms.newCard;
-const imageNameInput = formCard.elements.place;
-const imageLinkInput = formCard.elements.link;
-
 // Экземпляры классов для валидации
 const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formCard);
@@ -34,25 +28,6 @@ function handleSubmitEditProfile(event) {
   subtitleProfile.textContent = aboutYourSelfInput.value;
   closePopup(popupEditProfile);
   formValidatorEditProfile.disableSubmitButton();
-}
-
-// Функция добавления на страницу карточки
-function handleSubmitAddCard(event) {
-  event.preventDefault();
-  const cardLink = imageLinkInput.value;
-  const cardName = imageNameInput.value;
-  const card = new Card({ name: cardName, link: cardLink }, "#card-template");
-  const cardElement = card.generateCard();
-
-  // Было: cardsContainer.prepend(cardElement);
-  // А теперь новая функциональность
-  const section = new Section( {data: [cardElement], renderer: () => {} }, '.cards');
-  section.renderItems();
-  //
-
-  formValidatorAddCard.disableSubmitButton();
-  formCard.reset();
-  closePopup(popupAddCard);
 }
 
 function openEditForm(event) {
@@ -76,17 +51,32 @@ const setCloseEventListenersToPopups = (popups) => {
 };
 setCloseEventListenersToPopups(popups);
 
-// Метод пробегает по списку карточек и добавляет их на страницу
-initialCards.forEach((cardData) => {
-  const card = new Card(cardData, "#card-template");
+// Добавление на страницу изначальных карточек
+const cardList = new Section({ data: initialCards, renderer: (cardItem) => {
+  const card = new Card(cardItem, "#card-template");
   const cardElement = card.generateCard();
+  cardList.addItem(cardElement);
+} }, '.cards');
+cardList.renderItems();
 
-  // Было: cardsContainer.append(cardElement);
-  // А теперь новая функциональность
-  const section = new Section({ data: [cardElement], renderer: () => {} }, '.cards');
-  section.renderItems();
-  //
-});
+// Функция берет данные из формы и добавляет на страницу новую карточку
+const handleSubmitAddCard = (event) => {
+  event.preventDefault();
+  const cardName = imageNameInput.value;
+  const cardLink = imageLinkInput.value;
+  const cardData = {name: cardName, link: cardLink};
+
+  const cardUnit = new Section( { data: [cardData], renderer: () => {
+    const card = new Card(cardData, "#card-template");
+    const cardElement = card.generateCard();
+    cardUnit.addItemPrepend(cardElement);
+  } }, '.cards');
+  cardUnit.renderItems();
+
+  formValidatorAddCard.disableSubmitButton();
+  formCard.reset();
+  closePopup(popupAddCard);
+}
 
 // Функция включает валидацию форм
 const enableFormValidation = () => {

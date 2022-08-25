@@ -1,9 +1,9 @@
 import { popupImage, popupImg, popupTitle, openPopup } from "../utils/utils.js";
 
 export default class Card {
-  constructor(data, cardSelector) {
-    this._title = data.name;
-    this._image = data.link;
+  constructor({name, link}, cardSelector) {
+    this._title = name;
+    this._image = link;
     this._cardSelector = cardSelector;
   }
 

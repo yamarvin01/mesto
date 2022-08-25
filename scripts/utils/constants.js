@@ -6,3 +6,8 @@ export const validationConfig = {
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__error_active'
 }
+
+// Константы формы добавления новой карточки
+export const formCard = document.forms.newCard;
+export const imageNameInput = formCard.elements.place;
+export const imageLinkInput = formCard.elements.link;
