@@ -4,7 +4,7 @@
   position: absolute;
   top: -40px;
   right: -40px;
-  background-image: url('../../../../images/btn-close.svg');
+  background-image: url('../../../../../images/btn-close.svg');
 }
 
 .popup__button_type_close:hover {
