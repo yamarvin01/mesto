@@ -1,16 +1,9 @@
-import { Card } from "./Card.js";
-import { initialCards } from './data.js';
-import { FormValidator } from './FormValidator.js';
-import { popups, popupEditProfile, popupAddCard, openPopup, closePopup } from "./utils.js";
-
-const validationConfig = {
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__button_type_submit',
-  inactiveButtonClass: 'popup__button_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__error_active'
-}
+import { initialCards } from '../data.js';
+import Card from "../components/Card.js";
+import Section from '../components/Section.js';
+import FormValidator from '../components/FormValidator.js';
+import { validationConfig } from '../utils/constants.js';
+import { popups, popupEditProfile, popupAddCard, openPopup, closePopup } from "../utils/utils.js";
 
 const content = document.querySelector(".content");
 const profile = content.querySelector(".profile");
@@ -25,7 +18,7 @@ const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
 const btnAddCard = profile.querySelector(".profile__button-add");
 
 // Константы формы добавления новой карточки
-const cardsContainer = document.querySelector(".cards");
+// const cardsContainer = document.querySelector(".cards");
 const formCard = document.forms.newCard;
 const imageNameInput = formCard.elements.place;
 const imageLinkInput = formCard.elements.link;
@@ -50,7 +43,13 @@ function handleSubmitAddCard(event) {
   const cardName = imageNameInput.value;
   const card = new Card({ name: cardName, link: cardLink }, "#card-template");
   const cardElement = card.generateCard();
-  cardsContainer.prepend(cardElement);
+
+  // Было: cardsContainer.prepend(cardElement);
+  // А теперь новая функциональность
+  const section = new Section( {data: [cardElement], renderer: () => {} }, '.cards');
+  section.renderItems();
+  //
+
   formValidatorAddCard.disableSubmitButton();
   formCard.reset();
   closePopup(popupAddCard);
@@ -81,7 +80,12 @@ setCloseEventListenersToPopups(popups);
 initialCards.forEach((cardData) => {
   const card = new Card(cardData, "#card-template");
   const cardElement = card.generateCard();
-  cardsContainer.append(cardElement);
+
+  // Было: cardsContainer.append(cardElement);
+  // А теперь новая функциональность
+  const section = new Section({ data: [cardElement], renderer: () => {} }, '.cards');
+  section.renderItems();
+  //
 });
 
 // Функция включает валидацию форм
