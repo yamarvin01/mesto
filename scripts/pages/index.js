@@ -9,11 +9,11 @@ import {
   formEditProfile,
   nameInput,
   aboutYourSelfInput,
-  validationConfig,
   formCard,
   imageNameInput,
   imageLinkInput,
   btnAddCard,
+  validationConfig,
 } from "../utils/constants.js";
 import {
   popups,
@@ -39,7 +39,7 @@ function handleSubmitEditProfile(event) {
   formValidatorEditProfile.disableSubmitButton();
 }
 
-function openEditForm(event) {
+function openEditForm() {
   nameInput.value = titleProfile.textContent;
   aboutYourSelfInput.value = subtitleProfile.textContent;
   openPopup(popupEditProfile);
@@ -82,7 +82,7 @@ const handleSubmitAddCard = (event) => {
   const cardData = { name: cardName, link: cardLink };
 
   // Экземпляр класса cardUnit связывает между собой классы Section и Card
-  // и отрисовывает на странице HTML карточку, полученную от пользователя из формы
+  // и отрисовывает на странице карточку, полученную от пользователя из формы
   const cardUnit = new Section(
     {
       data: [cardData],

@@ -3,8 +3,8 @@
   grid-template-columns: min-content 1fr min-content;
   grid-template-rows: repeat(2, 1fr);
   grid-template-areas:
-  "avatar edit btn-add"
-  "avatar subtitle btn-add";
+    "avatar edit btn-add"
+    "avatar subtitle btn-add";
   padding-top: 40px;
   width: 100%;
   max-width: 880px;

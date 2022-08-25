@@ -1,4 +1,5 @@
 # Проект: Mesto
+
 Даный проект создан в рамках обущающего курса от Яндекс Практикус https://praktikum.yandex.ru/
 
 **Grid Layout**
@@ -12,5 +13,5 @@
 **Планируется**
 По мере маштабирования проекта добавлять новые фичи
 
-* Ссылка на проект: https://github.com/yamarvin01/mesto/
-* Сайт доступен по ссылке: https://yamarvin01.github.io/mesto/
+- Ссылка на проект: https://github.com/yamarvin01/mesto/
+- Сайт доступен по ссылке: https://yamarvin01.github.io/mesto/
