@@ -1,3 +1,5 @@
+import Popup from "../components/Popup.js";
+
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -23,3 +25,8 @@ export const formCard = document.forms.newCard;
 export const imageNameInput = formCard.elements.place;
 export const imageLinkInput = formCard.elements.link;
 export const btnAddCard = profile.querySelector(".profile__button-add");
+
+// Константы popup-ов
+export const popupEditProfileClass = new Popup('.popup_type_edit-profile');
+export const popupAddCardClass = new Popup('.popup_type_add-card');
+export const popupImgClass = new Popup('.popup_type_image');

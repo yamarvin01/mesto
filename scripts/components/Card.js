@@ -1,4 +1,5 @@
 import { popupImage, popupImg, popupTitle, openPopup } from "../utils/utils.js";
+import { popupImgClass } from "../utils/constants.js";
 
 export default class Card {
   constructor({ name, link }, cardSelector) {
@@ -20,7 +21,7 @@ export default class Card {
     popupTitle.textContent = this._title;
     popupImage.alt = "";
     popupImage.alt = "Изображение: " + this._title;
-    openPopup(popupImg);
+    popupImgClass.open();
   }
 
   _handleCardLikeClick() {
@@ -56,8 +57,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._element.querySelector(".card__title").textContent = this._title;
     this._element.querySelector(".card__image").src = this._image;
-    this._element.querySelector(".card__image").alt =
-      "Изображение: " + this._title;
+    this._element.querySelector(".card__image").alt = "Изображение: " + this._title;
     this._setEventListeners();
     return this._element;
   }

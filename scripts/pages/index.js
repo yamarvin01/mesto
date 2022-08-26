@@ -2,6 +2,7 @@ import { initialCards } from "../data.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
+import Popup from "../components/Popup.js";
 import {
   titleProfile,
   subtitleProfile,
@@ -14,6 +15,8 @@ import {
   imageLinkInput,
   btnAddCard,
   validationConfig,
+  popupEditProfileClass,
+  popupAddCardClass,
 } from "../utils/constants.js";
 import {
   popups,
@@ -30,21 +33,28 @@ const formValidatorEditProfile = new FormValidator(
 );
 const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 
+// Функция открывает форму для редактирования профиля
+const openEditForm = () => {
+  nameInput.value = titleProfile.textContent;
+  aboutYourSelfInput.value = subtitleProfile.textContent;
+  popupEditProfileClass.open();
+}
+
+// Функция открывает форму для добавления карточки
+const openAddCardForm = () => {
+  popupAddCardClass.open();
+}
+
 // Функция добавления на страницу информации об авторе
 function handleSubmitEditProfile(event) {
   event.preventDefault();
   titleProfile.textContent = nameInput.value;
   subtitleProfile.textContent = aboutYourSelfInput.value;
-  closePopup(popupEditProfile);
+  popupEditProfileClass.close();
   formValidatorEditProfile.disableSubmitButton();
 }
 
-function openEditForm() {
-  nameInput.value = titleProfile.textContent;
-  aboutYourSelfInput.value = subtitleProfile.textContent;
-  openPopup(popupEditProfile);
-}
-
+// TODO
 // Функция добавляет события закрытия popup-ов
 const setCloseEventListenersToPopups = (popups) => {
   popups.forEach((popup) => {
@@ -98,7 +108,7 @@ const handleSubmitAddCard = (event) => {
 
   formValidatorAddCard.disableSubmitButton();
   formCard.reset();
-  closePopup(popupAddCard);
+  popupAddCardClass.close();
 };
 
 // Функция включает валидацию форм
@@ -113,4 +123,4 @@ enableFormValidation();
 formEditProfile.addEventListener("submit", handleSubmitEditProfile);
 formCard.addEventListener("submit", handleSubmitAddCard);
 btnEditProfile.addEventListener("click", openEditForm);
-btnAddCard.addEventListener("click", () => openPopup(popupAddCard));
+btnAddCard.addEventListener("click", openAddCardForm);
