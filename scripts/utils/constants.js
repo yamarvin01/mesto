@@ -30,3 +30,8 @@ export const btnAddCard = profile.querySelector(".profile__button-add");
 export const popupEditProfileClass = new Popup('.popup_type_edit-profile');
 export const popupAddCardClass = new Popup('.popup_type_add-card');
 export const popupImgClass = new Popup('.popup_type_image');
+
+// Константы popup-а "Вывода Изображения Карточки" на полный экран
+export const popupImg = document.querySelector(".popup_type_image");
+export const popupImage = popupImg.querySelector(".popup__image");
+export const popupTitle = popupImg.querySelector(".popup__text");

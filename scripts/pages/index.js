@@ -2,7 +2,6 @@ import { initialCards } from "../data.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
-import Popup from "../components/Popup.js";
 import {
   titleProfile,
   subtitleProfile,
@@ -17,14 +16,8 @@ import {
   validationConfig,
   popupEditProfileClass,
   popupAddCardClass,
+  popupImgClass,
 } from "../utils/constants.js";
-import {
-  popups,
-  popupEditProfile,
-  popupAddCard,
-  openPopup,
-  closePopup,
-} from "../utils/utils.js";
 
 // Экземпляры классов для валидации
 const formValidatorEditProfile = new FormValidator(
@@ -53,22 +46,6 @@ function handleSubmitEditProfile(event) {
   popupEditProfileClass.close();
   formValidatorEditProfile.disableSubmitButton();
 }
-
-// TODO
-// Функция добавляет события закрытия popup-ов
-const setCloseEventListenersToPopups = (popups) => {
-  popups.forEach((popup) => {
-    popup.addEventListener("mousedown", (evt) => {
-      if (evt.target.classList.contains("popup_opened")) {
-        closePopup(popup);
-      }
-      if (evt.target.classList.contains("popup__button_type_close")) {
-        closePopup(popup);
-      }
-    });
-  });
-};
-setCloseEventListenersToPopups(popups);
 
 // Добавление на страницу изначальных карточек
 const cardList = new Section(
@@ -124,3 +101,7 @@ formEditProfile.addEventListener("submit", handleSubmitEditProfile);
 formCard.addEventListener("submit", handleSubmitAddCard);
 btnEditProfile.addEventListener("click", openEditForm);
 btnAddCard.addEventListener("click", openAddCardForm);
+
+popupEditProfileClass.setEventListeners();
+popupAddCardClass.setEventListeners();
+popupImgClass.setEventListeners();

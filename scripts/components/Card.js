@@ -1,4 +1,4 @@
-import { popupImage, popupImg, popupTitle, openPopup } from "../utils/utils.js";
+import { popupImage, popupTitle } from "../utils/constants.js";
 import { popupImgClass } from "../utils/constants.js";
 
 export default class Card {
