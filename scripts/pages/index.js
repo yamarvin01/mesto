@@ -1,6 +1,7 @@
 import { initialCards } from "../data.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
+import PopupWithForm from '../components/PopupWithForm.js';
 import FormValidator from "../components/FormValidator.js";
 import {
   titleProfile,
@@ -18,6 +19,16 @@ import {
   popupAddCard,
   popupWithImage,
 } from "../utils/constants.js";
+
+// TODO: ---
+const submitForm = () => {
+  console.log("submitForm: function");
+};
+
+const popupWithFormEditProfile = new PopupWithForm('.popup_type_edit-profile', submitForm);
+console.log(popupWithFormEditProfile);
+// ---
+
 
 // Экземпляры классов для валидации
 const formValidatorEditProfile = new FormValidator(
