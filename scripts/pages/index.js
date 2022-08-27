@@ -14,9 +14,9 @@ import {
   imageLinkInput,
   btnAddCard,
   validationConfig,
-  popupEditProfileClass,
-  popupAddCardClass,
-  popupImgClass,
+  popupEditProfile,
+  popupAddCard,
+  popupWithImage,
 } from "../utils/constants.js";
 
 // Экземпляры классов для валидации
@@ -30,12 +30,12 @@ const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 const openEditForm = () => {
   nameInput.value = titleProfile.textContent;
   aboutYourSelfInput.value = subtitleProfile.textContent;
-  popupEditProfileClass.open();
+  popupEditProfile.open();
 }
 
 // Функция открывает форму для добавления карточки
 const openAddCardForm = () => {
-  popupAddCardClass.open();
+  popupAddCard.open();
 }
 
 // Функция добавления на страницу информации об авторе
@@ -43,7 +43,7 @@ function handleSubmitEditProfile(event) {
   event.preventDefault();
   titleProfile.textContent = nameInput.value;
   subtitleProfile.textContent = aboutYourSelfInput.value;
-  popupEditProfileClass.close();
+  popupEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 }
 
@@ -85,7 +85,7 @@ const handleSubmitAddCard = (event) => {
 
   formValidatorAddCard.disableSubmitButton();
   formCard.reset();
-  popupAddCardClass.close();
+  popupAddCard.close();
 };
 
 // Функция включает валидацию форм
@@ -102,6 +102,6 @@ formCard.addEventListener("submit", handleSubmitAddCard);
 btnEditProfile.addEventListener("click", openEditForm);
 btnAddCard.addEventListener("click", openAddCardForm);
 
-popupEditProfileClass.setEventListeners();
-popupAddCardClass.setEventListeners();
-popupImgClass.setEventListeners();
+popupEditProfile.setEventListeners();
+popupAddCard.setEventListeners();
+popupWithImage.setEventListeners();
