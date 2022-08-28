@@ -22,6 +22,7 @@ const handleCardClick = () => {
   popupWithImage.open({ imageTitle: this._title, imageLink: this._imageLink });
 };
 
+// Экзепляр класса UserInfo с... угадайте... правильно... информацией о позователе)
 const userInfo = new UserInfo({
   userName: titleProfile.textContent,
   aboutYourSelf: subtitleProfile.textContent,

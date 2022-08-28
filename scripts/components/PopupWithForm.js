@@ -5,15 +5,15 @@ export default class PopupWithForm extends Popup {
   constructor(selectorPopup, submitForm) {
     super(selectorPopup);
     this._submitForm = submitForm;
-    this._form = this._popup.querySelector('.popup__form');
-    this._inputList = this._form.querySelectorAll('.popup__input');
-    this._btnSubmit = this._form.querySelector('.popup__button_type_submit');
+    this._form = this._popup.querySelector(".popup__form");
+    this._inputList = this._form.querySelectorAll(".popup__input");
+    this._btnSubmit = this._form.querySelector(".popup__button_type_submit");
   }
 
   // Приватный метод, который собирает данные всех полей формы
   _getInputValues() {
     let inputValues = {};
-    this._inputList.forEach( (element, index) => {
+    this._inputList.forEach((element, index) => {
       inputValues[index] = element.value;
     });
     return inputValues;
@@ -23,7 +23,7 @@ export default class PopupWithForm extends Popup {
   // должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы
   setEventListeners() {
     super.setEventListeners();
-    this._form.addEventListener('submit', (evt) => {
+    this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
       const inputValues = this._getInputValues();
       this._submitForm(inputValues);

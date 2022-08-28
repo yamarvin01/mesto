@@ -26,5 +26,5 @@ export const formCard = document.forms.newCard;
 export const btnAddCard = profile.querySelector(".profile__button-add");
 
 // Константы popup-ов
-export const popupAddCard = new Popup('.popup_type_add-card');
-export const popupWithImage = new PopupWithImage('.popup_type_image');
+export const popupAddCard = new Popup(".popup_type_add-card");
+export const popupWithImage = new PopupWithImage(".popup_type_image");
