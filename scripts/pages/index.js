@@ -1,8 +1,9 @@
-import { initialCards } from "../data.js";
+import UserInfo from "../components/UserInfo.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
+import { initialCards } from "../data.js";
 import {
   titleProfile,
   subtitleProfile,
@@ -16,12 +17,16 @@ import {
   popupWithImage,
 } from "../utils/constants.js";
 
+// TODO:
+  const userInfo = new UserInfo({userName: titleProfile.textContent, aboutYourSelf: subtitleProfile.textContent});
+  // userInfo.getUserInfo();
+  // userInfo.setUserInfo({userName: 'MARSEL', aboutYourSelf: 'ISHMUKHAMETOV'});
+// ---
+
 // Экземлпяр класса и функция отправки формы при добавлении новой карточки
-const popupWithFormAddCard = new PopupWithForm(
-  ".popup_type_add-card",
-  ({ 0: cardName, 1: cardLink }) => {
+const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card",({ 0: cardName, 1: cardLink }) =>
+  {
     const cardData = { name: cardName, link: cardLink };
-    console.log("cardData: ", cardData);
 
     // Экземпляр класса cardUnit связывает между собой классы Section и Card
     // и отрисовывает на странице карточку, полученную от пользователя из формы
@@ -42,14 +47,14 @@ const popupWithFormAddCard = new PopupWithForm(
     popupWithFormAddCard.close();
   }
 );
-popupWithFormAddCard.setEventListeners();
 
 // Экземлпяр класса и функция отправки формы при редактировании профиля
-const popupWithFormEditProfile = new PopupWithForm(
-  ".popup_type_edit-profile",
-  ({ 0: name, 1: aboutYourSelf }) => {
-    titleProfile.textContent = name;
-    subtitleProfile.textContent = aboutYourSelf;
+const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", ({ 0: name, 1: aboutYourSelf }) => {
+    // titleProfile.textContent = name;
+    // subtitleProfile.textContent = aboutYourSelf;
+
+    userInfo.setUserInfo({userName: name, aboutYourSelf: aboutYourSelf});
+
     popupWithFormEditProfile.close();
     formValidatorEditProfile.disableSubmitButton();
   }
@@ -64,8 +69,9 @@ const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
-  nameInput.value = titleProfile.textContent;
-  aboutYourSelfInput.value = subtitleProfile.textContent;
+  const userInfoData = userInfo.getUserInfo();
+  nameInput.value = userInfoData.userName;
+  aboutYourSelfInput.value = userInfoData.aboutYourSelf;
   popupWithFormEditProfile.open();
 };
 
@@ -99,6 +105,6 @@ enableFormValidation();
 
 btnEditProfile.addEventListener("click", openEditForm);
 btnAddCard.addEventListener("click", openAddCardForm);
-
 popupWithImage.setEventListeners();
 popupWithFormEditProfile.setEventListeners();
+popupWithFormAddCard.setEventListeners();

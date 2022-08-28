@@ -16,7 +16,6 @@ export default class PopupWithForm extends Popup {
     this._inputList.forEach( (element, index) => {
       inputValues[index] = element.value;
     });
-    console.log('inputValues: ', inputValues);
     return inputValues;
   }
 
@@ -37,5 +36,3 @@ export default class PopupWithForm extends Popup {
     this._form.reset();
   }
 }
-
-// Для каждого попапа создавайте свой экземпляр класса PopupWithForm
