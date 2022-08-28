@@ -1,7 +1,7 @@
 import { initialCards } from "../data.js";
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
-import PopupWithForm from '../components/PopupWithForm.js';
+import PopupWithForm from "../components/PopupWithForm.js";
 import FormValidator from "../components/FormValidator.js";
 import {
   titleProfile,
@@ -11,24 +11,49 @@ import {
   nameInput,
   aboutYourSelfInput,
   formCard,
-  imageNameInput,
-  imageLinkInput,
   btnAddCard,
   validationConfig,
-  popupEditProfile,
-  popupAddCard,
   popupWithImage,
 } from "../utils/constants.js";
 
-// TODO: ---
-const submitForm = () => {
-  console.log("submitForm: function");
-};
+// Экземлпяр класса и функция отправки формы при добавлении новой карточки
+const popupWithFormAddCard = new PopupWithForm(
+  ".popup_type_add-card",
+  ({ 0: cardName, 1: cardLink }) => {
+    const cardData = { name: cardName, link: cardLink };
+    console.log("cardData: ", cardData);
 
-const popupWithFormEditProfile = new PopupWithForm('.popup_type_edit-profile', submitForm);
-console.log(popupWithFormEditProfile);
-// ---
+    // Экземпляр класса cardUnit связывает между собой классы Section и Card
+    // и отрисовывает на странице карточку, полученную от пользователя из формы
+    const cardUnit = new Section(
+      {
+        data: [cardData],
+        renderer: () => {
+          const card = new Card(cardData, "#card-template");
+          const cardElement = card.generateCard();
+          cardUnit.addItemPrepend(cardElement);
+        },
+      },
+      ".cards"
+    );
+    cardUnit.renderItems();
 
+    formValidatorAddCard.disableSubmitButton();
+    popupWithFormAddCard.close();
+  }
+);
+popupWithFormAddCard.setEventListeners();
+
+// Экземлпяр класса и функция отправки формы при редактировании профиля
+const popupWithFormEditProfile = new PopupWithForm(
+  ".popup_type_edit-profile",
+  ({ 0: name, 1: aboutYourSelf }) => {
+    titleProfile.textContent = name;
+    subtitleProfile.textContent = aboutYourSelf;
+    popupWithFormEditProfile.close();
+    formValidatorEditProfile.disableSubmitButton();
+  }
+);
 
 // Экземпляры классов для валидации
 const formValidatorEditProfile = new FormValidator(
@@ -41,22 +66,13 @@ const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 const openEditForm = () => {
   nameInput.value = titleProfile.textContent;
   aboutYourSelfInput.value = subtitleProfile.textContent;
-  popupEditProfile.open();
-}
+  popupWithFormEditProfile.open();
+};
 
 // Функция открывает форму для добавления карточки
 const openAddCardForm = () => {
-  popupAddCard.open();
-}
-
-// Функция добавления на страницу информации об авторе
-function handleSubmitEditProfile(event) {
-  event.preventDefault();
-  titleProfile.textContent = nameInput.value;
-  subtitleProfile.textContent = aboutYourSelfInput.value;
-  popupEditProfile.close();
-  formValidatorEditProfile.disableSubmitButton();
-}
+  popupWithFormAddCard.open();
+};
 
 // Добавление на страницу изначальных карточек
 const cardList = new Section(
@@ -72,33 +88,6 @@ const cardList = new Section(
 );
 cardList.renderItems();
 
-// Функция берет данные из формы и добавляет на страницу новую карточку
-const handleSubmitAddCard = (event) => {
-  event.preventDefault();
-  const cardName = imageNameInput.value;
-  const cardLink = imageLinkInput.value;
-  const cardData = { name: cardName, link: cardLink };
-
-  // Экземпляр класса cardUnit связывает между собой классы Section и Card
-  // и отрисовывает на странице карточку, полученную от пользователя из формы
-  const cardUnit = new Section(
-    {
-      data: [cardData],
-      renderer: () => {
-        const card = new Card(cardData, "#card-template");
-        const cardElement = card.generateCard();
-        cardUnit.addItemPrepend(cardElement);
-      },
-    },
-    ".cards"
-  );
-  cardUnit.renderItems();
-
-  formValidatorAddCard.disableSubmitButton();
-  formCard.reset();
-  popupAddCard.close();
-};
-
 // Функция включает валидацию форм
 const enableFormValidation = () => {
   formValidatorEditProfile.enableValidation();
@@ -108,11 +97,8 @@ const enableFormValidation = () => {
 };
 enableFormValidation();
 
-formEditProfile.addEventListener("submit", handleSubmitEditProfile);
-formCard.addEventListener("submit", handleSubmitAddCard);
 btnEditProfile.addEventListener("click", openEditForm);
 btnAddCard.addEventListener("click", openAddCardForm);
 
-popupEditProfile.setEventListeners();
-popupAddCard.setEventListeners();
 popupWithImage.setEventListeners();
+popupWithFormEditProfile.setEventListeners();
