@@ -17,6 +17,11 @@ import {
   popupWithImage,
 } from "../utils/constants.js";
 
+// Функция открывает Popup при клике на карточку
+const handleCardClick = () => {
+  popupWithImage.open({ imageTitle: this._title, imageLink: this._imageLink });
+};
+
 const userInfo = new UserInfo({
   userName: titleProfile.textContent,
   aboutYourSelf: subtitleProfile.textContent,
@@ -34,7 +39,7 @@ const popupWithFormAddCard = new PopupWithForm(
       {
         data: [cardData],
         renderer: () => {
-          const card = new Card(cardData, "#card-template");
+          const card = new Card(cardData, "#card-template", handleCardClick);
           const cardElement = card.generateCard();
           cardUnit.addItemPrepend(cardElement);
         },
@@ -83,7 +88,7 @@ const cardList = new Section(
   {
     data: initialCards,
     renderer: (cardItem) => {
-      const card = new Card(cardItem, "#card-template");
+      const card = new Card(cardItem, "#card-template", handleCardClick);
       const cardElement = card.generateCard();
       cardList.addItem(cardElement);
     },
