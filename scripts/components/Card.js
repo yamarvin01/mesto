@@ -1,3 +1,6 @@
+// Свяжите класс Card c попапом. Сделайте так, чтобы Card принимал в конструктор функцию handleCardClick
+// Эта функция должна открывать попап с картинкой при клике на карточку
+
 import { popupWithImage } from "../utils/constants.js";
 
 export default class Card {

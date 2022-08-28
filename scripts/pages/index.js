@@ -17,15 +17,15 @@ import {
   popupWithImage,
 } from "../utils/constants.js";
 
-// TODO:
-  const userInfo = new UserInfo({userName: titleProfile.textContent, aboutYourSelf: subtitleProfile.textContent});
-  // userInfo.getUserInfo();
-  // userInfo.setUserInfo({userName: 'MARSEL', aboutYourSelf: 'ISHMUKHAMETOV'});
-// ---
+const userInfo = new UserInfo({
+  userName: titleProfile.textContent,
+  aboutYourSelf: subtitleProfile.textContent,
+});
 
 // Экземлпяр класса и функция отправки формы при добавлении новой карточки
-const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card",({ 0: cardName, 1: cardLink }) =>
-  {
+const popupWithFormAddCard = new PopupWithForm(
+  ".popup_type_add-card",
+  ({ 0: cardName, 1: cardLink }) => {
     const cardData = { name: cardName, link: cardLink };
 
     // Экземпляр класса cardUnit связывает между собой классы Section и Card
@@ -49,12 +49,10 @@ const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card",({ 0: card
 );
 
 // Экземлпяр класса и функция отправки формы при редактировании профиля
-const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", ({ 0: name, 1: aboutYourSelf }) => {
-    // titleProfile.textContent = name;
-    // subtitleProfile.textContent = aboutYourSelf;
-
-    userInfo.setUserInfo({userName: name, aboutYourSelf: aboutYourSelf});
-
+const popupWithFormEditProfile = new PopupWithForm(
+  ".popup_type_edit-profile",
+  ({ 0: name, 1: aboutYourSelf }) => {
+    userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
     popupWithFormEditProfile.close();
     formValidatorEditProfile.disableSubmitButton();
   }
