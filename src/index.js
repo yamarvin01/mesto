@@ -1,4 +1,4 @@
-import './styles/index.css';
+import "./index.css";
 import UserInfo from "./scripts/components/UserInfo.js";
 import Card from "./scripts/components/Card.js";
 import Section from "./scripts/components/Section.js";
