@@ -1,0 +1,23 @@
+{
+  "name": "yandex_praktikum",
+  "version": "0.0.1",
+  "description": "Даный проект создан в рамках обущающего курса от Яндекс Практикус https://praktikum.yandex.ru/",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yamarvin01/mesto.git"
+  },
+  "author": "yamarvin01",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yamarvin01/mesto/issues"
+  },
+  "homepage": "https://github.com/yamarvin01/mesto#readme",
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0"
+  }
+}
