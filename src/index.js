@@ -1,9 +1,9 @@
-import UserInfo from "../components/UserInfo.js";
-import Card from "../components/Card.js";
-import Section from "../components/Section.js";
-import PopupWithForm from "../components/PopupWithForm.js";
-import FormValidator from "../components/FormValidator.js";
-import { initialCards } from "../data.js";
+import UserInfo from "../scripts/components/UserInfo.js";
+import Card from "../scripts/components/Card.js";
+import Section from "../scripts/components/Section.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
+import FormValidator from "../scripts/components/FormValidator.js";
+import { initialCards } from "../scripts/data.js";
 import {
   titleProfile,
   subtitleProfile,
@@ -15,7 +15,7 @@ import {
   btnAddCard,
   validationConfig,
   popupWithImage,
-} from "../utils/constants.js";
+} from "../scripts/utils/constants.js";
 
 // Функция открывает Popup при клике на карточку
 const handleCardClick = () => {
