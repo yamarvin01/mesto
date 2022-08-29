@@ -3,17 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="./styles/pages/index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>mesto</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
         <a class="header__link" href="#" target="_blank" rel="noopener">
+          <!-- TODO: проверить ссылку на картинку -->
           <img
             class="header__logo"
-            src="./images/logo-mesto.svg"
+            src="<%=require('./styles/images/logo-mesto.svg')%>"
             alt="Логотип Mesto Russia"
           />
         </a>
@@ -21,9 +21,10 @@
 
       <main class="content">
         <section class="profile">
+          <!-- TODO: проверить ссылку на картинку -->
           <img
             class="profile__avatar"
-            src="./images/avatar.jpg"
+            src="<%=require('./styles/images/avatar.jpg')%>"
             alt="Аватарка"
           />
           <div class="profile__edit">

@@ -2,7 +2,7 @@
   grid-area: edit;
   align-self: end;
   display: flex;
-  justify-content: start;
+  justify-content: flex-start;
   align-items: baseline;
   text-overflow: ellipsis;
   white-space: nowrap;
