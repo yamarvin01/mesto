@@ -15,9 +15,8 @@ export default class Section {
     this._container.prepend(element);
   }
 
-  // Вызывает для каждого элемента массива метод setItem
   // Публичный метод, который отвечает за отрисовку всех элементов
   renderItems() {
-    this._items.forEach((item) => this._renderer(item));
+    this._items.forEach( item => this._renderer(item));
   }
 }

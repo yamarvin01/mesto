@@ -1,7 +1,6 @@
 import Popup from "./Popup.js";
 
 export default class PopupWithForm extends Popup {
-  // Кроме селектора попапа принимает в конструктор колбэк сабмита формы
   constructor(selectorPopup, submitForm) {
     super(selectorPopup);
     this._submitForm = submitForm;
@@ -10,7 +9,6 @@ export default class PopupWithForm extends Popup {
     this._btnSubmit = this._form.querySelector(".popup__button_type_submit");
   }
 
-  // Приватный метод, который собирает данные всех полей формы
   _getInputValues() {
     let inputValues = {};
     this._inputList.forEach((element, index) => {
