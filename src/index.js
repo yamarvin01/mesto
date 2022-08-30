@@ -2,12 +2,11 @@ import "./index.css";
 import UserInfo from "./scripts/components/UserInfo.js";
 import Card from "./scripts/components/Card.js";
 import Section from "./scripts/components/Section.js";
+import PopupWithImage from "./scripts/components/PopupWithImage";
 import PopupWithForm from "./scripts/components/PopupWithForm.js";
 import FormValidator from "./scripts/components/FormValidator.js";
 import { initialCards } from "./scripts/data.js";
 import {
-  titleProfile,
-  subtitleProfile,
   btnEditProfile,
   formEditProfile,
   nameInput,
@@ -15,14 +14,10 @@ import {
   formCard,
   btnAddCard,
   validationConfig,
-  popupWithImage,
 } from "./scripts/utils/constants.js";
 
-// Экзепляр класса UserInfo с... угадайте... правильно... информацией о позователе)
-const userInfo = new UserInfo({
-  userName: titleProfile.textContent,
-  aboutYourSelf: subtitleProfile.textContent,
-});
+const userInfo = new UserInfo();
+const popupWithImage = new PopupWithImage(".popup_type_image");
 
 // Функция открывает Popup при клике на карточку
 const handleCardClick = ({ imageTitle, imageLink }) => {
@@ -55,14 +50,7 @@ const popupWithFormAddCard = new PopupWithForm(
   }
 );
 
-
-
-
-
-
-
-
-// Экземлпяр класса и функция отправки формы при редактировании профиля
+// Экземлпяр класса формы редактирования профиля
 const popupWithFormEditProfile = new PopupWithForm(
   ".popup_type_edit-profile",
   ({ name, aboutYourSelf }) => {
@@ -79,12 +67,6 @@ const openEditForm = () => {
   aboutYourSelfInput.value = userInfoData.aboutYourSelf;
   popupWithFormEditProfile.open();
 };
-
-
-
-
-
-
 
 // Экземпляры классов для валидации
 const formValidatorEditProfile = new FormValidator(

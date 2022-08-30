@@ -1,16 +1,7 @@
-import { titleProfile, subtitleProfile } from "../utils/constants.js";
-
 export default class UserInfo {
-  constructor({ userName, aboutYourSelf }) {
-    this._userName = userName;
-    this._aboutYourSelf = aboutYourSelf;
-
+  constructor() {
     this._profileTitleElement = document.querySelector('.profile__title');
     this._profileSubtitleElement = document.querySelector('.profile__subtitle');
-
-    console.log('profileTitle: ', this._profileTitleElement);
-    console.log('profileSubtitle: ', this._profileSubtitleElement);
-
   }
 
   getUserInfo() {

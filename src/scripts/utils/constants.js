@@ -1,6 +1,3 @@
-import Popup from "../components/Popup.js";
-import PopupWithImage from "../components/PopupWithImage.js";
-
 export const validationConfig = {
   formSelector: ".popup__form",
   inputSelector: ".popup__input",
@@ -12,8 +9,6 @@ export const validationConfig = {
 
 // Константы профиля на главной странице
 export const profile = document.querySelector(".profile");
-export const titleProfile = profile.querySelector(".profile__title");
-export const subtitleProfile = profile.querySelector(".profile__subtitle");
 export const btnEditProfile = profile.querySelector(".profile__button-edit");
 
 // Константы формы редактирования профиля
@@ -24,7 +19,3 @@ export const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
 // Константы формы добавления новой карточки
 export const formCard = document.forms.newCard;
 export const btnAddCard = profile.querySelector(".profile__button-add");
-
-// Константы popup-ов
-export const popupAddCard = new Popup(".popup_type_add-card");
-export const popupWithImage = new PopupWithImage(".popup_type_image");
