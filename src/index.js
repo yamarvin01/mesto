@@ -24,41 +24,59 @@ const handleCardClick = ({ imageTitle, imageLink }) => {
   popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
 };
 
-// Экземлпяр класса и функция отправки формы при добавлении новой карточки
-const popupWithFormAddCard = new PopupWithForm(
-  ".popup_type_add-card",
-  ({ place: cardName, link: cardLink }) => {
-    const cardData = { name: cardName, link: cardLink };
 
-    // Экземпляр класса cardUnit связывает между собой классы Section и Card
-    // и отрисовывает на странице карточку, полученную от пользователя из формы
-    const cardUnit = new Section(
-      {
-        data: [cardData],
-        renderer: () => {
-          const card = new Card(cardData, "#card-template", handleCardClick);
-          const cardElement = card.generateCard();
-          cardUnit.addItemPrepend(cardElement);
-        },
+
+
+
+
+// TODO
+const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
+  const cardData = { name: cardName, link: cardLink };
+
+  // Экземпляр класса cardUnit связывает между собой классы Section и Card
+  // и отрисовывает на странице карточку, полученную от пользователя из формы
+  const cardUnit = new Section(
+    {
+      data: [cardData],
+      renderer: () => {
+        const card = new Card(cardData, "#card-template", handleCardClick);
+        const cardElement = card.generateCard();
+        cardUnit.addItemPrepend(cardElement);
       },
-      ".cards"
-    );
-    cardUnit.renderItems();
+    },
+    ".cards"
+  );
+  cardUnit.renderItems();
 
-    formValidatorAddCard.disableSubmitButton();
-    popupWithFormAddCard.close();
-  }
-);
+  formValidatorAddCard.disableSubmitButton();
+  popupWithFormAddCard.close();
+}
+
+// Экземлпяр класса и функция отправки формы при добавлении новой карточки
+const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
+// ---
+
+
+
+
+
+
+// TODO
+const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
+  userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
+  popupWithFormEditProfile.close();
+  formValidatorEditProfile.disableSubmitButton();
+}
 
 // Экземлпяр класса формы редактирования профиля
-const popupWithFormEditProfile = new PopupWithForm(
-  ".popup_type_edit-profile",
-  ({ name, aboutYourSelf }) => {
-    userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
-    popupWithFormEditProfile.close();
-    formValidatorEditProfile.disableSubmitButton();
-  }
-);
+const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
+// ---
+
+
+
+
+
+
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
