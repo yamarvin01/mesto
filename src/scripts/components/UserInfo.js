@@ -20,9 +20,7 @@ export default class UserInfo {
   }
 
   setUserInfo({ userName, aboutYourSelf }) {
-    this._userName = userName;
-    this._aboutYourSelf = aboutYourSelf;
-    titleProfile.textContent = this._userName;
-    subtitleProfile.textContent = this._aboutYourSelf;
+    this._profileTitleElement.textContent = userName;
+    this._profileSubtitleElement.textContent = aboutYourSelf;
   }
 }
