@@ -55,6 +55,13 @@ const popupWithFormAddCard = new PopupWithForm(
   }
 );
 
+
+
+
+
+
+
+
 // Экземлпяр класса и функция отправки формы при редактировании профиля
 const popupWithFormEditProfile = new PopupWithForm(
   ".popup_type_edit-profile",
@@ -65,13 +72,6 @@ const popupWithFormEditProfile = new PopupWithForm(
   }
 );
 
-// Экземпляры классов для валидации
-const formValidatorEditProfile = new FormValidator(
-  validationConfig,
-  formEditProfile
-);
-const formValidatorAddCard = new FormValidator(validationConfig, formCard);
-
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
   const userInfoData = userInfo.getUserInfo();
@@ -79,6 +79,19 @@ const openEditForm = () => {
   aboutYourSelfInput.value = userInfoData.aboutYourSelf;
   popupWithFormEditProfile.open();
 };
+
+
+
+
+
+
+
+// Экземпляры классов для валидации
+const formValidatorEditProfile = new FormValidator(
+  validationConfig,
+  formEditProfile
+);
+const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 
 // Функция открывает форму для добавления карточки
 const openAddCardForm = () => {
