@@ -18,16 +18,16 @@ import {
   popupWithImage,
 } from "./scripts/utils/constants.js";
 
-// Функция открывает Popup при клике на карточку
-const handleCardClick = () => {
-  popupWithImage.open({ imageTitle: this._title, imageLink: this._imageLink });
-};
-
 // Экзепляр класса UserInfo с... угадайте... правильно... информацией о позователе)
 const userInfo = new UserInfo({
   userName: titleProfile.textContent,
   aboutYourSelf: subtitleProfile.textContent,
 });
+
+// Функция открывает Popup при клике на карточку
+const handleCardClick = () => {
+  popupWithImage.open({ imageTitle: this._title, imageLink: this._imageLink });
+};
 
 // Экземлпяр класса и функция отправки формы при добавлении новой карточки
 const popupWithFormAddCard = new PopupWithForm(
