@@ -32,7 +32,7 @@ const handleCardClick = ({ imageTitle, imageLink }) => {
 // Экземлпяр класса и функция отправки формы при добавлении новой карточки
 const popupWithFormAddCard = new PopupWithForm(
   ".popup_type_add-card",
-  ({ 0: cardName, 1: cardLink }) => {
+  ({ place: cardName, link: cardLink }) => {
     const cardData = { name: cardName, link: cardLink };
 
     // Экземпляр класса cardUnit связывает между собой классы Section и Card
@@ -58,7 +58,7 @@ const popupWithFormAddCard = new PopupWithForm(
 // Экземлпяр класса и функция отправки формы при редактировании профиля
 const popupWithFormEditProfile = new PopupWithForm(
   ".popup_type_edit-profile",
-  ({ 0: name, 1: aboutYourSelf }) => {
+  ({ name, aboutYourSelf }) => {
     userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
     popupWithFormEditProfile.close();
     formValidatorEditProfile.disableSubmitButton();
