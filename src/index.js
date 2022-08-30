@@ -50,7 +50,7 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
 
   formValidatorAddCard.disableSubmitButton();
   popupWithFormAddCard.close();
-}
+};
 
 // Экземлпяр класса и функция отправки формы при добавлении новой карточки
 const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
@@ -66,7 +66,7 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
-}
+};
 
 // Экземлпяр класса формы редактирования профиля
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);

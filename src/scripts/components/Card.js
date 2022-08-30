@@ -14,6 +14,12 @@ export default class Card {
     return cardElement;
   }
 
+  // Пробовал в конструкторе объявить
+  // this._btnLike = this._element.querySelector(".card__button_type_like");
+  // Но в момент инициализации конструктора this._element - undefined
+  // this._element появляется только когда срабатывает метод generateCard();
+  // Кокое в таком случае может быть решение?)
+  // И я так понимаю что это необходимо сделать везде где исп-ся м-д .querySelector();
   _handleCardLikeClick() {
     this._element
       .querySelector(".card__button_type_like")
@@ -47,8 +53,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._element.querySelector(".card__title").textContent = this._title;
     this._element.querySelector(".card__image").src = this._imageLink;
-    this._element.querySelector(".card__image").alt =
-      "Изображение: " + this._title;
+    this._element.querySelector(".card__image").alt = "Изображение: " + this._title;
     this._setEventListeners();
     return this._element;
   }
