@@ -25,8 +25,8 @@ const userInfo = new UserInfo({
 });
 
 // Функция открывает Popup при клике на карточку
-const handleCardClick = () => {
-  popupWithImage.open({ imageTitle: this._title, imageLink: this._imageLink });
+const handleCardClick = ({ imageTitle, imageLink }) => {
+  popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
 };
 
 // Экземлпяр класса и функция отправки формы при добавлении новой карточки
