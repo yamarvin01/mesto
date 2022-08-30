@@ -23,10 +23,7 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 };
-const popupWithFormEditProfile = new PopupWithForm(
-  ".popup_type_edit-profile",
-  handleSubmitEditProfile
-);
+const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
@@ -54,11 +51,7 @@ const createNewCardElement = (cardItem, cardTemplate, cardFunction) => {
 const cardSection = new Section(
   initialCards,
   (cardItem) => {
-    const cardElement = createNewCardElement(
-      cardItem,
-      "#card-template",
-      handleCardClick
-    );
+    const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick);
     cardSection.addItem(cardElement);
   },
   ".cards"
@@ -68,11 +61,7 @@ cardSection.renderItems();
 // Добавление на страницу карточки из формы от пользователя
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
   const cardItem = { name: cardName, link: cardLink };
-  const cardElement = createNewCardElement(
-    cardItem,
-    "#card-template",
-    handleCardClick
-  );
+  const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick);
   cardSection.addItemPrepend(cardElement);
   formValidatorAddCard.disableSubmitButton();
   popupWithFormAddCard.close();
@@ -85,10 +74,7 @@ const openAddCardForm = () => {
 };
 
 // Экземпляры классов для валидации
-const formValidatorEditProfile = new FormValidator(
-  validationConfig,
-  formEditProfile
-);
+const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 
 // Функция включает валидацию форм
