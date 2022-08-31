@@ -1,3 +1,5 @@
+// Круто! Спасибо)
+
 export default class Card {
   constructor({ name, link }, cardSelector, handleCardClick) {
     this._title = name;
@@ -14,16 +16,8 @@ export default class Card {
     return cardElement;
   }
 
-  // Пробовал в конструкторе объявить
-  // this._btnLike = this._element.querySelector(".card__button_type_like");
-  // Но в момент инициализации конструктора this._element - undefined
-  // this._element появляется только когда срабатывает метод generateCard();
-  // Кокое в таком случае может быть решение?)
-  // И я так понимаю что это необходимо сделать везде где исп-ся м-д .querySelector();
   _handleCardLikeClick() {
-    this._element
-      .querySelector(".card__button_type_like")
-      .classList.toggle("card__button_status_active");
+    this._elementBtnLike.classList.toggle("card__button_status_active");
   }
 
   _handleCardDeleteClick() {
@@ -32,28 +26,28 @@ export default class Card {
   }
 
   _setEventListeners() {
-    this._element
-      .querySelector(".card__image")
-      .addEventListener("click", () => {
-        this._handleCardClick({ imageTitle: this._title, imageLink: this._imageLink });
-      });
-    this._element
-      .querySelector(".card__button_type_like")
-      .addEventListener("click", () => {
-        this._handleCardLikeClick();
-      });
-    this._element
-      .querySelector(".card__button_type_delete")
-      .addEventListener("click", () => {
+    this._elementImage.addEventListener("click", () => {
+      this._handleCardClick({ imageTitle: this._title, imageLink: this._imageLink});
+    });
+    this._elementBtnLike.addEventListener("click", () => {
+      this._handleCardLikeClick();
+    });
+    this._elementBtnDelete.addEventListener("click", () => {
         this._handleCardDeleteClick();
       });
   }
 
   generateCard() {
     this._element = this._getTemplate();
-    this._element.querySelector(".card__title").textContent = this._title;
-    this._element.querySelector(".card__image").src = this._imageLink;
-    this._element.querySelector(".card__image").alt = "Изображение: " + this._title;
+    this._elementTitle = this._element.querySelector(".card__title");
+    this._elementImage = this._element.querySelector(".card__image");
+    this._elementBtnLike = this._element.querySelector(".card__button_type_like");
+    this._elementBtnDelete = this._element.querySelector(".card__button_type_delete");
+
+    this._elementTitle.textContent = this._title;
+    this._elementImage.src = this._imageLink;
+    this._elementImage.alt = "Изображение: " + this._title;
+
     this._setEventListeners();
     return this._element;
   }
