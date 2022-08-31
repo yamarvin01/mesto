@@ -67,7 +67,7 @@ export default class FormValidator {
 
   disableSubmitButton() {
     this._buttonElement.disabled = "true";
-    this._buttonElement.classList.add("popup__button_inactive");
+    this._buttonElement.classList.add(this._settings.inactiveButtonClass);
   }
 
   enableValidation() {
