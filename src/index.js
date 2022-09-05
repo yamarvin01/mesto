@@ -141,7 +141,7 @@ function addCardsToDOM() {
 addCardsToDOM();
 
 // 3. Редактирование профиля
-function editProfile() {
+function onEditProfile() {
   fetch("https://mesto.nomoreparties.co/v1/cohort-49/users/me", {
     method: "PATCH",
     headers: {
@@ -150,9 +150,11 @@ function editProfile() {
     },
     body: JSON.stringify({
       name: "Йода",
-      about: "Гранд-мастер Ордена джедаев",
+      about: "Гранд-мастер Ордена джедаев"
     }),
   });
 }
+onEditProfile();
+onUserInfo();
 
 
