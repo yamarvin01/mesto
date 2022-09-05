@@ -1,5 +1,3 @@
-// Круто! Спасибо)
-
 export default class Card {
   constructor({ name, link }, cardSelector, handleCardClick) {
     this._title = name;
