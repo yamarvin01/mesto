@@ -22,7 +22,10 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 };
-const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
+const popupWithFormEditProfile = new PopupWithForm(
+  ".popup_type_edit-profile",
+  handleSubmitEditProfile
+);
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
@@ -49,12 +52,19 @@ const createNewCardElement = (cardItem, cardTemplate, cardFunction) => {
 // Добавление на страницу карточки из формы от пользователя
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
   const cardItem = { name: cardName, link: cardLink };
-  const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick);
+  const cardElement = createNewCardElement(
+    cardItem,
+    "#card-template",
+    handleCardClick
+  );
   cardSection.addItemPrepend(cardElement);
   formValidatorAddCard.disableSubmitButton();
   popupWithFormAddCard.close();
 };
-const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
+const popupWithFormAddCard = new PopupWithForm(
+  ".popup_type_add-card",
+  handleSubmitAddCard
+);
 
 // Функция открывает форму для добавления карточки
 const openAddCardForm = () => {
@@ -62,7 +72,10 @@ const openAddCardForm = () => {
 };
 
 // Экземпляры классов для валидации
-const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
+const formValidatorEditProfile = new FormValidator(
+  validationConfig,
+  formEditProfile
+);
 const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 
 // Функция включает валидацию форм
@@ -104,31 +117,35 @@ function onUserInfo() {
 onUserInfo();
 
 // 2. Загрузка карточек с сервера
-fetch("https://mesto.nomoreparties.co/v1/cohort-49/cards", {
-  method: "GET",
-  headers: {
-    authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
-  },
-})
-  .then((response) => {
-    console.log("cards объект ответа от сервера (JSON-формат): ", response);
-    if (response.ok) {
-      return response.json();
-    }
+function addCardsToDOM() {
+  fetch("https://mesto.nomoreparties.co/v1/cohort-49/cards", {
+    method: "GET",
+    headers: {
+      authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
+    },
   })
-  .then((result) => {
-    console.log("cards promise: ", result);
-    // Добавление на страницу изначальных карточек
-    const cardSection = new Section(
-      result,
-      (cardItem) => {
-        const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick);
-        cardSection.addItem(cardElement);
-      },
-      ".cards"
-    );
-    cardSection.renderItems();
-  })
-  .catch((err) => {
-    console.log("Ошибка. Запрос не выполнен");
-  });
+    .then((response) => {
+      console.log("cards объект ответа от сервера (JSON-формат): ", response);
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then((result) => {
+      console.log("cards promise: ", result);
+      // Добавление на страницу изначальных карточек
+      const cardSection = new Section(
+        result,
+        (cardItem) => {
+          const cardElement = createNewCardElement(
+            cardItem,
+            "#card-template",
+            handleCardClick
+          );
+          cardSection.addItem(cardElement);
+        },
+        ".cards"
+      );
+      cardSection.renderItems();
+    });
+}
+addCardsToDOM();
