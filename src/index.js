@@ -16,13 +16,16 @@ import {
 } from "./scripts/utils/constants.js";
 
 const userInfo = new UserInfo();
+let cardSection = null;
 
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 };
-const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile
+const popupWithFormEditProfile = new PopupWithForm(
+  ".popup_type_edit-profile",
+  handleSubmitEditProfile
 );
 
 // Функция открывает форму для редактирования профиля
@@ -50,7 +53,11 @@ const createNewCardElement = (cardItem, cardTemplate, cardFunction) => {
 // Добавление на страницу карточки из формы от пользователя
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
   const cardItem = { name: cardName, link: cardLink };
-  const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick);
+  const cardElement = createNewCardElement(
+    cardItem,
+    "#card-template",
+    handleCardClick
+  );
   cardSection.addItemPrepend(cardElement);
   formValidatorAddCard.disableSubmitButton();
   popupWithFormAddCard.close();
@@ -63,7 +70,10 @@ const openAddCardForm = () => {
 };
 
 // Экземпляры классов для валидации
-const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
+const formValidatorEditProfile = new FormValidator(
+  validationConfig,
+  formEditProfile
+);
 const formValidatorAddCard = new FormValidator(validationConfig, formCard);
 
 // Функция включает валидацию форм
@@ -91,12 +101,12 @@ function onUserInfo() {
   })
     .then((response) => {
       if (response.ok) {
-        console.log("UserInfo объект ответа от сервера (JSON-формат): ", response);
+        // console.log("UserInfo объект ответа от сервера (JSON-формат): ", response);
         return response.json();
       }
     })
     .then((result) => {
-      console.log("UserInfo promise: ", result);
+      // console.log("UserInfo promise: ", result);
       userInfo.setUserInfo({
         userName: result.name,
         aboutYourSelf: result.about,
@@ -123,7 +133,7 @@ function addCardsToDOM() {
     .then((result) => {
       // console.log("cards promise: ", result);
       // Добавление на страницу изначальных карточек
-      const cardSection = new Section(
+      cardSection = new Section(
         result,
         (cardItem) => {
           const cardElement = createNewCardElement(
@@ -146,15 +156,38 @@ function onEditProfile() {
     method: "PATCH",
     headers: {
       authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
-      "content-type": "application/json",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({
       name: "Йода",
-      about: "Гранд-мастер Ордена джедаев"
+      about: "Гранд-мастер Ордена джедаев",
     }),
   });
 }
 onEditProfile();
 onUserInfo();
 
-
+// 4. Добавление новой карточки
+function addNewPost() {
+  fetch("https://mesto.nomoreparties.co/v1/cohort-49/cards", {
+    method: "POST",
+    headers: {
+      authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      name: "Йода",
+      link: "https://f8n-production.imgix.net/creators/profile/xtzp7fssk-hyperbaton-2275-1268edd09699798ee8da3ca29259b6b1-1x-jpg-mo0twx.jpg?q=70&amp;w=1680&amp;fm=jpg",
+    }),
+  })
+    .then((response) => {
+      console.log("card объект ответа от сервера (JSON-формат): ", response);
+      if (response.ok) {
+        return response.json();
+      }
+    })
+    .then((result) => {
+      console.log("card promise: ", result);
+    });
+}
+addNewPost();
