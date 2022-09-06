@@ -53,11 +53,7 @@ const createNewCardElement = (cardItem, cardTemplate, cardFunction) => {
 // Добавление на страницу карточки из формы от пользователя
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
   const cardItem = { name: cardName, link: cardLink };
-  const cardElement = createNewCardElement(
-    cardItem,
-    "#card-template",
-    handleCardClick
-  );
+  const cardElement = createNewCardElement(cardItem, "#card-template",handleCardClick);
   cardSection.addItemPrepend(cardElement);
   formValidatorAddCard.disableSubmitButton();
   popupWithFormAddCard.close();
