@@ -4,6 +4,7 @@ import Card from "./scripts/components/Card.js";
 import Section from "./scripts/components/Section.js";
 import PopupWithImage from "./scripts/components/PopupWithImage";
 import PopupWithForm from "./scripts/components/PopupWithForm.js";
+import PopupDeleteCard from "./scripts/components/PopupDeleteCard.js";
 import FormValidator from "./scripts/components/FormValidator.js";
 import {
   btnEditProfile,
@@ -23,10 +24,7 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 };
-const popupWithFormEditProfile = new PopupWithForm(
-  ".popup_type_edit-profile",
-  handleSubmitEditProfile
-);
+const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
@@ -105,13 +103,14 @@ function addCardsToDOM() {
     },
   })
     .then((response) => {
-      console.log("cards объект ответа от сервера (JSON-формат): ", response);
+      // console.log("cards объект ответа от сервера (JSON-формат): ", response);
       if (response.ok) {
         return response.json();
       }
     })
     .then((result) => {
       console.log("cards promise: ", result);
+      console.log('ownerID: ', result[0].owner._id);
       // Добавление на страницу изначальных карточек
       cardSection = new Section(
         result,
@@ -157,7 +156,7 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
     }),
   })
     .then((response) => {
-      console.log("card объект ответа от сервера (JSON-формат): ", response);
+      // console.log("card объект ответа от сервера (JSON-формат): ", response);
       if (response.ok) {
         return response.json();
       }
@@ -175,12 +174,12 @@ const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSub
 
 
 // 6. Попап удаления карточки
+const popuDeleteCard = new PopupDeleteCard('.popup_type_deleteCard');
+console.log('popuDeleteCard: ', popuDeleteCard);
 
 
-
-
-
-
+popuDeleteCard.open();
+// popuDeleteCard.close();
 
 
 
@@ -199,3 +198,4 @@ btnAddCard.addEventListener("click", openAddCardForm);
 popupWithImage.setEventListeners();
 popupWithFormEditProfile.setEventListeners();
 popupWithFormAddCard.setEventListeners();
+popuDeleteCard.setEventListeners();

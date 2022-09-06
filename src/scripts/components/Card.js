@@ -1,8 +1,9 @@
 export default class Card {
-  constructor({ name, link, likes }, cardSelector, handleCardClick) {
+  constructor({ name, link, likes, owner }, cardSelector, handleCardClick) {
     this._title = name;
     this._imageLink = link;
     this._likes = likes;
+    this._owner = owner;
     this._cardSelector = cardSelector;
     this._handleCardClick = handleCardClick;
   }

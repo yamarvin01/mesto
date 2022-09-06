@@ -12,11 +12,13 @@ export default class Popup {
   }
 
   open() {
+    console.log('popup открылся');
     this._popup.classList.add("popup_opened");
     document.addEventListener("keydown", this._handleEscClose);
   }
 
   close() {
+    console.log('popup закрылся');
     this._popup.classList.remove("popup_opened");
     document.removeEventListener("keydown", this._handleEscClose);
   }

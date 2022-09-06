@@ -25,8 +25,9 @@
 @import url('./styles/blocks/card/__likeText/card__likeText.css');
 @import url("./styles/blocks/card/__button/card__button.css");
 @import url("./styles/blocks/card/__button/_type/card__button_type_like.css");
-@import url("./styles/blocks/card/__button/_status/card__button_status_active.css");
 @import url("./styles/blocks/card/__button/_type/card__button_type_delete.css");
+@import url("./styles/blocks/card/__button/_status/card__button_status_active.css");
+@import url('./styles/blocks/card/__button/_visible/card__button_visible.css');
 
 @import url("./styles/blocks/footer/footer.css");
 @import url("./styles/blocks/footer/__copyright/footer__copyright.css");
@@ -38,7 +39,6 @@
 @import url("./styles/blocks/popup/__container/_type/popup__container_type_form.css");
 @import url("./styles/blocks/popup/__container/_type/popup__container_type_image.css");
 @import url('./styles/blocks/popup/__container/_type/popup__container_type_deleteCard.css');
-
 @import url("./styles/blocks/popup/__title/popup__title.css");
 @import url("./styles/blocks/popup/__text/popup__text.css");
 @import url("./styles/blocks/popup/__form/popup__form.css");
