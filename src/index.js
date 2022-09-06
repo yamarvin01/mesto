@@ -50,16 +50,6 @@ const createNewCardElement = (cardItem, cardTemplate, cardFunction) => {
   return cardElement;
 };
 
-// Добавление на страницу карточки из формы от пользователя
-const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
-  const cardItem = { name: cardName, link: cardLink };
-  const cardElement = createNewCardElement(cardItem, "#card-template",handleCardClick);
-  cardSection.addItemPrepend(cardElement);
-  formValidatorAddCard.disableSubmitButton();
-  popupWithFormAddCard.close();
-};
-const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
-
 // Функция открывает форму для добавления карточки
 const openAddCardForm = () => {
   popupWithFormAddCard.open();
@@ -80,12 +70,6 @@ const enableFormValidation = () => {
   formValidatorAddCard.disableSubmitButton();
 };
 enableFormValidation();
-
-btnEditProfile.addEventListener("click", openEditForm);
-btnAddCard.addEventListener("click", openAddCardForm);
-popupWithImage.setEventListeners();
-popupWithFormEditProfile.setEventListeners();
-popupWithFormAddCard.setEventListeners();
 
 // 1. Загрузка информации о пользователе с сервера
 function onUserInfo() {
@@ -164,7 +148,7 @@ onEditProfile();
 onUserInfo();
 
 // 4. Добавление новой карточки
-function addNewPost() {
+const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
   fetch("https://mesto.nomoreparties.co/v1/cohort-49/cards", {
     method: "POST",
     headers: {
@@ -172,8 +156,8 @@ function addNewPost() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      name: "Йода",
-      link: "https://f8n-production.imgix.net/creators/profile/xtzp7fssk-hyperbaton-2275-1268edd09699798ee8da3ca29259b6b1-1x-jpg-mo0twx.jpg?q=70&amp;w=1680&amp;fm=jpg",
+      name: cardName,
+      link: cardLink
     }),
   })
     .then((response) => {
@@ -184,6 +168,40 @@ function addNewPost() {
     })
     .then((result) => {
       console.log("card promise: ", result);
+      const cardItem = { name: result.name, link: result.link };
+      const cardElement = createNewCardElement(cardItem, "#card-template",handleCardClick);
+      cardSection.addItemPrepend(cardElement);
+      formValidatorAddCard.disableSubmitButton();
+      popupWithFormAddCard.close();
     });
 }
-addNewPost();
+const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
+
+// 5. Отображение количества лайков карточки
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+btnEditProfile.addEventListener("click", openEditForm);
+btnAddCard.addEventListener("click", openAddCardForm);
+popupWithImage.setEventListeners();
+popupWithFormEditProfile.setEventListeners();
+popupWithFormAddCard.setEventListeners();
