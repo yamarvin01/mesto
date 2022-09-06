@@ -174,12 +174,12 @@ const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSub
 
 
 // 6. Попап удаления карточки
-const popuDeleteCard = new PopupDeleteCard('.popup_type_deleteCard');
-console.log('popuDeleteCard: ', popuDeleteCard);
+const popupDeleteCard = new PopupDeleteCard('.popup_type_deleteCard');
+console.log('popupDeleteCard: ', popupDeleteCard);
 
 
-popuDeleteCard.open();
-// popuDeleteCard.close();
+popupDeleteCard.open();
+// popupDeleteCard.close();
 
 
 
@@ -198,4 +198,4 @@ btnAddCard.addEventListener("click", openAddCardForm);
 popupWithImage.setEventListeners();
 popupWithFormEditProfile.setEventListeners();
 popupWithFormAddCard.setEventListeners();
-popuDeleteCard.setEventListeners();
+popupDeleteCard.setEventListeners();

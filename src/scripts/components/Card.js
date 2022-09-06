@@ -25,6 +25,12 @@ export default class Card {
     this._element = null;
   }
 
+  _makeBtnDeleteVisible() {
+    if (this._owner._id === "3feab90d034df0900ec642f3") {
+      this._elementBtnDelete.classList.add('card__button_visible');
+    }
+  }
+
   _setEventListeners() {
     this._elementImage.addEventListener("click", () => {
       this._handleCardClick({ imageTitle: this._title, imageLink: this._imageLink});
@@ -47,8 +53,9 @@ export default class Card {
 
     this._elementTitle.textContent = this._title;
     this._elementImage.src = this._imageLink;
-    this._elementLikes.textContent = this._likes.length;
     this._elementImage.alt = "Изображение: " + this._title;
+    this._elementLikes.textContent = this._likes.length;
+    this._makeBtnDeleteVisible();
 
     this._setEventListeners();
     return this._element;
