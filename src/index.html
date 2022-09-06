@@ -156,6 +156,11 @@
           ></button>
         </div>
       </div>
+
+      <div class="popup popup_type_image">
+
+      </div>
+
     </div>
 
     <template id="card-template">
@@ -163,11 +168,10 @@
         <img class="card__image" alt="Изображение" />
         <div class="card__info">
           <h2 class="card__title"></h2>
-          <button
-            class="card__button card__button_type_like"
-            type="button"
-            aria-label="Кнопка лайк"
-          ></button>
+          <div class="card__like">
+            <button class="card__button card__button_type_like" type="button" aria-label="Кнопка лайк"></button>
+            <p class="card__likeText"></p>
+          </div>
         </div>
         <button
           class="card__button card__button_type_delete"

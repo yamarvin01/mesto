@@ -105,22 +105,18 @@ function addCardsToDOM() {
     },
   })
     .then((response) => {
-      // console.log("cards объект ответа от сервера (JSON-формат): ", response);
+      console.log("cards объект ответа от сервера (JSON-формат): ", response);
       if (response.ok) {
         return response.json();
       }
     })
     .then((result) => {
-      // console.log("cards promise: ", result);
+      console.log("cards promise: ", result);
       // Добавление на страницу изначальных карточек
       cardSection = new Section(
         result,
         (cardItem) => {
-          const cardElement = createNewCardElement(
-            cardItem,
-            "#card-template",
-            handleCardClick
-          );
+          const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick);
           cardSection.addItem(cardElement);
         },
         ".cards"
@@ -167,9 +163,7 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       }
     })
     .then((result) => {
-      console.log("card promise: ", result);
-      const cardItem = { name: result.name, link: result.link };
-      const cardElement = createNewCardElement(cardItem, "#card-template",handleCardClick);
+      const cardElement = createNewCardElement(result, "#card-template",handleCardClick);
       cardSection.addItemPrepend(cardElement);
       formValidatorAddCard.disableSubmitButton();
       popupWithFormAddCard.close();
@@ -180,7 +174,7 @@ const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSub
 // 5. Отображение количества лайков карточки
 
 
-
+// 6. Попап удаления карточки
 
 
 
