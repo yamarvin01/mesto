@@ -22,18 +22,10 @@ export default class Card {
     this._elementBtnLike.classList.toggle("card__button_status_active");
   }
 
-  // TODO:
   remove() {
     this._element.remove();
     this._element = null;
-
-    // this._element.remove();
-    // this._element = null;
   }
-
-
-
-
 
   _makeBtnDeleteVisible() {
     if (this._owner._id === "3feab90d034df0900ec642f3") {
@@ -60,17 +52,12 @@ export default class Card {
     this._elementLikes = this._element.querySelector('.card__likeText');
     this._elementBtnLike = this._element.querySelector(".card__button_type_like");
     this._elementBtnDelete = this._element.querySelector(".card__button_type_delete");
-
     this._elementTitle.textContent = this._title;
     this._elementImage.src = this._imageLink;
     this._elementImage.alt = "Изображение: " + this._title;
     this._elementLikes.textContent = this._likes.length;
     this._element.cardID = this._id;
-
-
-
     this._makeBtnDeleteVisible();
-
     this._setEventListeners();
     return this._element;
   }
