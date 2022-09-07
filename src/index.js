@@ -224,6 +224,13 @@ function deleteCardFromServer(cardId) {
 
 
 
+
+
+
+
+
+
+
 btnEditProfile.addEventListener("click", openEditForm);
 btnAddCard.addEventListener("click", openAddCardForm);
 popupWithImage.setEventListeners();
