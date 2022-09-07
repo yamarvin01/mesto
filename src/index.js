@@ -24,7 +24,10 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 };
-const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
+const popupWithFormEditProfile = new PopupWithForm(
+  ".popup_type_edit-profile",
+  handleSubmitEditProfile
+);
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
@@ -41,9 +44,35 @@ const handleCardClick = ({ imageTitle, imageLink }) => {
   popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
 };
 
+
+
+
+
+
+// Функция отслеживает нажатие кнопки Delete на карточке
+const handleCardDeleteClick = (cardElement) => {
+  popupDeleteCard.open(cardElement);
+}
+
+// Функция отслеживает нажатие подтверждения удаления карточки
+const handlePopupDeleteCardClick = (cardElement) => {
+  deleteCardFromServer(cardElement.cardID);
+  cardElement.remove();
+  popupDeleteCard.close();
+}
+
+
+
+
+
+
+
+
+
+
 // Функция создания новой карточки
-const createNewCardElement = (cardItem, cardTemplate, cardFunction) => {
-  const card = new Card(cardItem, cardTemplate, cardFunction);
+const createNewCardElement = (cardItem, cardTemplate, handleCardClick, handleCardDeleteClick) => {
+  const card = new Card(cardItem, cardTemplate, handleCardClick, handleCardDeleteClick);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -79,12 +108,10 @@ function onUserInfo() {
   })
     .then((response) => {
       if (response.ok) {
-        // console.log("UserInfo объект ответа от сервера (JSON-формат): ", response);
         return response.json();
       }
     })
     .then((result) => {
-      // console.log("UserInfo promise: ", result);
       userInfo.setUserInfo({
         userName: result.name,
         aboutYourSelf: result.about,
@@ -103,19 +130,16 @@ function addCardsToDOM() {
     },
   })
     .then((response) => {
-      // console.log("cards объект ответа от сервера (JSON-формат): ", response);
       if (response.ok) {
         return response.json();
       }
     })
     .then((result) => {
-      console.log("cards promise: ", result);
-      console.log('ownerID: ', result[0].owner._id);
       // Добавление на страницу изначальных карточек
       cardSection = new Section(
         result,
         (cardItem) => {
-          const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick);
+          const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick, handleCardDeleteClick);
           cardSection.addItem(cardElement);
         },
         ".cards"
@@ -152,40 +176,47 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
     },
     body: JSON.stringify({
       name: cardName,
-      link: cardLink
+      link: cardLink,
     }),
   })
     .then((response) => {
-      // console.log("card объект ответа от сервера (JSON-формат): ", response);
       if (response.ok) {
         return response.json();
       }
     })
     .then((result) => {
-      const cardElement = createNewCardElement(result, "#card-template",handleCardClick);
+      const cardElement = createNewCardElement(result, "#card-template", handleCardClick, handleCardDeleteClick);
       cardSection.addItemPrepend(cardElement);
       formValidatorAddCard.disableSubmitButton();
       popupWithFormAddCard.close();
     });
-}
-const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
+};
+const popupWithFormAddCard = new PopupWithForm(
+  ".popup_type_add-card",
+  handleSubmitAddCard
+);
 
 // 5. Отображение количества лайков карточки
 
-
 // 6. Попап удаления карточки
-const popupDeleteCard = new PopupDeleteCard('.popup_type_deleteCard');
-console.log('popupDeleteCard: ', popupDeleteCard);
+const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handlePopupDeleteCardClick);
 
 
-popupDeleteCard.open();
-// popupDeleteCard.close();
-
-
-
-
-
-
+// 7. Удаление карточки из данных сервера
+function deleteCardFromServer(cardId) {
+  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardId}`, {
+    method: "DELETE",
+    headers: {
+      authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
+    },
+  })
+    .then((response) => {
+      // Карточна успешно удалена если ок
+      if (response.ok) {
+        return response.json();
+      }
+    });
+}
 
 
 

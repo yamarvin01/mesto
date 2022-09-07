@@ -8,7 +8,19 @@ export default class Section {
   // Публичный метод, который принимает DOM-элемент и добавляет его в контейнер методом append
   addItem(element) {
     this._container.append(element);
+
   }
+
+  // removeItem(ID) {
+  //   console.log('cardSection.remove сработал');
+  //   this._items.forEach((item) => {
+  //     if (ID === "6318beefec03970f7834f2dd") {
+  //       item.remove();
+  //     }
+  //   });
+  // }
+
+
 
   // Публичный метод, который принимает DOM-элемент и добавляет его в контейнер методом prepend
   addItemPrepend(element) {
