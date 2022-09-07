@@ -6,28 +6,29 @@ import PopupWithImage from "./scripts/components/PopupWithImage";
 import PopupWithForm from "./scripts/components/PopupWithForm.js";
 import PopupDeleteCard from "./scripts/components/PopupDeleteCard.js";
 import FormValidator from "./scripts/components/FormValidator.js";
-import {
-  btnEditProfile,
-  formEditProfile,
-  nameInput,
-  aboutYourSelfInput,
-  formCard,
-  btnAddCard,
-  validationConfig,
-} from "./scripts/utils/constants.js";
+import { btnEditProfile, formEditProfile, nameInput, aboutYourSelfInput, formCard, btnAddCard, validationConfig } from "./scripts/utils/constants.js";
 
 const userInfo = new UserInfo();
 let cardSection = null;
+
+// Экземпляры классов для валидации
+const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
+const formValidatorAddCard = new FormValidator(validationConfig, formCard);
+
+const enableFormValidation = () => {
+  formValidatorEditProfile.enableValidation();
+  formValidatorEditProfile.disableSubmitButton();
+  formValidatorAddCard.enableValidation();
+  formValidatorAddCard.disableSubmitButton();
+};
+enableFormValidation();
 
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 };
-const popupWithFormEditProfile = new PopupWithForm(
-  ".popup_type_edit-profile",
-  handleSubmitEditProfile
-);
+const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
@@ -44,11 +45,6 @@ const handleCardClick = ({ imageTitle, imageLink }) => {
   popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
 };
 
-
-
-
-
-
 // Функция отслеживает нажатие кнопки Delete на карточке
 const handleCardDeleteClick = (cardElement) => {
   popupDeleteCard.open(cardElement);
@@ -61,15 +57,6 @@ const handlePopupDeleteCardClick = (cardElement) => {
   popupDeleteCard.close();
 }
 
-
-
-
-
-
-
-
-
-
 // Функция создания новой карточки
 const createNewCardElement = (cardItem, cardTemplate, handleCardClick, handleCardDeleteClick) => {
   const card = new Card(cardItem, cardTemplate, handleCardClick, handleCardDeleteClick);
@@ -81,22 +68,6 @@ const createNewCardElement = (cardItem, cardTemplate, handleCardClick, handleCar
 const openAddCardForm = () => {
   popupWithFormAddCard.open();
 };
-
-// Экземпляры классов для валидации
-const formValidatorEditProfile = new FormValidator(
-  validationConfig,
-  formEditProfile
-);
-const formValidatorAddCard = new FormValidator(validationConfig, formCard);
-
-// Функция включает валидацию форм
-const enableFormValidation = () => {
-  formValidatorEditProfile.enableValidation();
-  formValidatorEditProfile.disableSubmitButton();
-  formValidatorAddCard.enableValidation();
-  formValidatorAddCard.disableSubmitButton();
-};
-enableFormValidation();
 
 // 1. Загрузка информации о пользователе с сервера
 function onUserInfo() {
@@ -191,16 +162,10 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       popupWithFormAddCard.close();
     });
 };
-const popupWithFormAddCard = new PopupWithForm(
-  ".popup_type_add-card",
-  handleSubmitAddCard
-);
-
-// 5. Отображение количества лайков карточки
+const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
 
 // 6. Попап удаления карточки
 const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handlePopupDeleteCardClick);
-
 
 // 7. Удаление карточки из данных сервера
 function deleteCardFromServer(cardId) {
@@ -217,6 +182,23 @@ function deleteCardFromServer(cardId) {
       }
     });
 }
+
+// 8. Постановка лайка
+// fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards/cardId/likes', {
+//   method: 'PUT',
+//   headers: {
+//     authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
+//   }
+// });
+
+// // Снятие лайка
+// fetch('https://mesto.nomoreparties.co/v1/cohort-49/cards/cardId/likes', {
+//   method: 'DELETE',
+//   headers: {
+//     authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
+//   }
+// });
+
 
 
 
