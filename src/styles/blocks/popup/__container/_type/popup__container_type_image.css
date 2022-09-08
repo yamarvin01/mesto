@@ -1,3 +1,14 @@
 .popup__container_type_image {
+  width: auto;
+  border-radius: 0px;
+  padding: 0px;
+  box-shadow: none;
   background-color: rgba(0, 0, 0, 0);
+}
+
+@media screen and (max-width: 700px) {
+  .popup__container_type_image {
+    width: auto;
+    padding: 0px;
+  }
 }

@@ -228,6 +228,17 @@ function removeCardLike(cardItem) {
     });
 }
 
+
+
+
+
+
+
+
+
+
+
+
 // Включаем валидацию
 const enableFormValidation = () => {
   formValidatorEditProfile.enableValidation();

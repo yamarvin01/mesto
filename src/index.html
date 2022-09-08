@@ -138,7 +138,7 @@
               class="popup__button popup__button_type_submit"
               type="submit"
             >
-              Сохранить
+              Создать
             </button>
           </form>
         </div>
@@ -165,6 +165,41 @@
           <button class="popup__button popup__button_type_submit" type="submit">
             Да
           </button>
+        </div>
+      </div>
+
+      <!-- popup_opened -->
+      <div class="popup popup_type_editAvatar">
+        <div class="popup__container popup__container_type_editAvatar">
+          <h2 class="popup__title">Обновить аватар</h2>
+          <button
+            class="popup__button popup__button_type_close"
+            type="button"
+          ></button>
+
+          <form
+            class="popup__form popup__form_type_editAvatar"
+            name="editAvatar"
+            novalidate
+          >
+            <label class="popup__field" for="avatar-input">
+              <input
+                id="avatar-input"
+                class="popup__input popup__input_type_avatar"
+                type="url"
+                name="avatar"
+                placeholder="Ссылка на аватар"
+                required
+              />
+              <span class="avatar-input-error popup__error"></span>
+            </label>
+            <button
+              class="popup__button popup__button_type_submit"
+              type="submit"
+            >
+              Сохранить
+            </button>
+          </form>
         </div>
       </div>
     </div>
