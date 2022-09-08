@@ -19,11 +19,6 @@ export default class Card {
     return cardElement;
   }
 
-  // _handleCardLikeClick() {
-  //   this._elementBtnLike.classList.toggle("card__button_status_active");
-  //   console.log(this._element);
-  // }
-
   _makeBtnDeleteVisible() {
     if (this._owner._id === "3feab90d034df0900ec642f3") {
       this._elementBtnDelete.classList.add("card__button_visible");
@@ -35,16 +30,23 @@ export default class Card {
       this._handleCardClick({ imageTitle: this._title, imageLink: this._imageLink });
     });
     this._elementBtnLike.addEventListener("click", () => {
-      this._handleCardLikeClick(this._element, this._element.cardID);
+      this._handleCardLikeClick(this);
     });
     this._elementBtnDelete.addEventListener("click", () => {
       this._handleCardDeleteClick(this._element);
     });
   }
 
-  remove() {
-    this._element.remove();
-    this._element = null;
+  setLikeStatusToCard() {
+    this._elementLikes.textContent = this._likes.length;
+    const cardLikeStatus = this._likes.some(like => like._id === '3feab90d034df0900ec642f3');
+    if (cardLikeStatus) {
+      this._likeStatus = 'active';
+      this._elementBtnLike.classList.add("card__button_status_active");
+    } else {
+      this._likeStatus = 'not active';
+      this._elementBtnLike.classList.remove("card__button_status_active");
+    }
   }
 
   generateCard() {
@@ -57,10 +59,16 @@ export default class Card {
     this._elementTitle.textContent = this._title;
     this._elementImage.src = this._imageLink;
     this._elementImage.alt = "Изображение: " + this._title;
-    this._elementLikes.textContent = this._likes.length;
     this._element.cardID = this._id;
     this._makeBtnDeleteVisible();
+    this.setLikeStatusToCard();
     this._setEventListeners();
     return this._element;
   }
+
+  remove() {
+    this._element.remove();
+    this._element = null;
+  }
+
 }

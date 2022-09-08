@@ -107,7 +107,6 @@ function addCardsToDOM() {
       }
     })
     .then((result) => {
-      console.log("result cards: ", result);
       // Добавление на страницу изначальных карточек
       cardSection = new Section(
         result,
@@ -194,48 +193,52 @@ function deleteCardFromServer(cardId) {
 
 
 // Функция отслеживает статус лайка
-const handleCardLikeClick = (cardElement, cardID) => {
-  console.log('handleCardLikeClick отработал', cardElement, cardID);
+const handleCardLikeClick = (cardItem) => {
+  if (cardItem._likeStatus === "not active") {
+    addCardLike(cardItem);
+  }
+  if (cardItem._likeStatus === "active") {
+    removeCardLike(cardItem);
+  }
 }
 
 
 
 // 8. Постановка лайка
-function addCardLikeToServer(cardID) {
-  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardID}/likes`, {
+function addCardLike(cardItem) {
+  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardItem._id}/likes`, {
     method: "PUT",
     headers: {
       authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
     },
   })
     .then((response) => {
-      console.log("response add like: ", response);
       if (response.ok) {
         return response.json();
       }
     })
     .then((result) => {
-      console.log("result add like: ", result);
+      cardItem._likes = result.likes;
+      cardItem.setLikeStatusToCard();
     });
 }
-addCardLikeToServer('6319de40bd53430fc530aa7d');
 
 // Снятие лайка
-function removeCardLikeFromServer(cardID) {
-  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardID}/likes`, {
+function removeCardLike(cardItem) {
+  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardItem._id}/likes`, {
     method: "DELETE",
     headers: {
       authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
     },
   })
     .then((response) => {
-      console.log("response remove like: ", response);
       if (response.ok) {
         return response.json();
       }
     })
     .then((result) => {
-      console.log("result remove like: ", result);
+      cardItem._likes = result.likes;
+      cardItem.setLikeStatusToCard();
     });
 }
 
