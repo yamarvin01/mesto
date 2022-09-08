@@ -84,11 +84,7 @@ function onUserInfo() {
       }
     })
     .then((result) => {
-      userInfo.setUserInfo({
-        userName: result.name,
-        aboutYourSelf: result.about,
-        avatar: result.avatar,
-      });
+      userInfo.setUserInfo({userName: result.name, aboutYourSelf: result.about, avatar: result.avatar});
     });
 }
 onUserInfo();
@@ -146,10 +142,7 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      name: cardName,
-      link: cardLink,
-    }),
+    body: JSON.stringify({name: cardName, link: cardLink}),
   })
     .then((response) => {
       if (response.ok) {
@@ -163,16 +156,10 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       popupWithFormAddCard.close();
     });
 };
-const popupWithFormAddCard = new PopupWithForm(
-  ".popup_type_add-card",
-  handleSubmitAddCard
-);
+const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
 
 // 6. Попап удаления карточки
-const popupDeleteCard = new PopupDeleteCard(
-  ".popup_type_deleteCard",
-  handlePopupDeleteCardClick
-);
+const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handlePopupDeleteCardClick);
 
 // 7. Удаление карточки из данных сервера
 function deleteCardFromServer(cardId) {
@@ -189,9 +176,6 @@ function deleteCardFromServer(cardId) {
   });
 }
 
-
-
-
 // Функция отслеживает статус лайка
 const handleCardLikeClick = (cardItem) => {
   if (cardItem._likeStatus === "not active") {
@@ -200,18 +184,18 @@ const handleCardLikeClick = (cardItem) => {
   if (cardItem._likeStatus === "active") {
     removeCardLike(cardItem);
   }
-}
-
-
+};
 
 // 8. Постановка лайка
 function addCardLike(cardItem) {
-  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardItem._id}/likes`, {
-    method: "PUT",
-    headers: {
-      authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
-    },
-  })
+  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardItem._id}/likes`,
+    {
+      method: "PUT",
+      headers: {
+        authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
+      },
+    }
+  )
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -225,12 +209,14 @@ function addCardLike(cardItem) {
 
 // Снятие лайка
 function removeCardLike(cardItem) {
-  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardItem._id}/likes`, {
-    method: "DELETE",
-    headers: {
-      authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
-    },
-  })
+  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardItem._id}/likes`,
+    {
+      method: "DELETE",
+      headers: {
+        authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
+      },
+    }
+  )
     .then((response) => {
       if (response.ok) {
         return response.json();
@@ -241,20 +227,6 @@ function removeCardLike(cardItem) {
       cardItem.setLikeStatusToCard();
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // Включаем валидацию
 const enableFormValidation = () => {
