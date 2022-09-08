@@ -29,10 +29,7 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   popupWithFormEditProfile.close();
   formValidatorEditProfile.disableSubmitButton();
 };
-const popupWithFormEditProfile = new PopupWithForm(
-  ".popup_type_edit-profile",
-  handleSubmitEditProfile
-);
+const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 
 // Функция открывает форму для редактирования профиля
 const openEditForm = () => {
@@ -62,18 +59,8 @@ const handlePopupDeleteCardClick = (cardElement) => {
 };
 
 // Функция создания новой карточки
-const createNewCardElement = (
-  cardItem,
-  cardTemplate,
-  handleCardClick,
-  handleCardDeleteClick
-) => {
-  const card = new Card(
-    cardItem,
-    cardTemplate,
-    handleCardClick,
-    handleCardDeleteClick
-  );
+const createNewCardElement = (cardItem, cardTemplate, handleCardClick, handleCardDeleteClick, handleCardLikeClick) => {
+  const card = new Card(cardItem, cardTemplate, handleCardClick, handleCardDeleteClick, handleCardLikeClick);
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -125,12 +112,7 @@ function addCardsToDOM() {
       cardSection = new Section(
         result,
         (cardItem) => {
-          const cardElement = createNewCardElement(
-            cardItem,
-            "#card-template",
-            handleCardClick,
-            handleCardDeleteClick
-          );
+          const cardElement = createNewCardElement(cardItem, "#card-template", handleCardClick, handleCardDeleteClick, handleCardLikeClick);
           cardSection.addItem(cardElement);
         },
         ".cards"
@@ -176,12 +158,7 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       }
     })
     .then((result) => {
-      const cardElement = createNewCardElement(
-        result,
-        "#card-template",
-        handleCardClick,
-        handleCardDeleteClick
-      );
+      const cardElement = createNewCardElement(result, "#card-template", handleCardClick, handleCardDeleteClick, handleCardLikeClick);
       cardSection.addItemPrepend(cardElement);
       formValidatorAddCard.disableSubmitButton();
       popupWithFormAddCard.close();
@@ -216,8 +193,10 @@ function deleteCardFromServer(cardId) {
 
 
 
-
-
+// Функция отслеживает статус лайка
+const handleCardLikeClick = (cardElement, cardID) => {
+  console.log('handleCardLikeClick отработал', cardElement, cardID);
+}
 
 
 
