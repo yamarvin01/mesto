@@ -11,6 +11,7 @@ import {
   formEditProfile,
   nameInput,
   aboutYourSelfInput,
+  formEditAvatar,
   formCard,
   btnAddCard,
   validationConfig,
@@ -18,11 +19,10 @@ import {
 
 let cardSection = null;
 const userInfo = new UserInfo();
-const formValidatorEditProfile = new FormValidator(
-  validationConfig,
-  formEditProfile
-);
+
+const formValidatorEditProfile = new FormValidator(validationConfig,formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formCard);
+const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
 
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
@@ -245,6 +245,8 @@ const enableFormValidation = () => {
   formValidatorEditProfile.disableSubmitButton();
   formValidatorAddCard.enableValidation();
   formValidatorAddCard.disableSubmitButton();
+  formValidatorEditAvatar.enableValidation();
+  formValidatorEditAvatar.disableSubmitButton();
 };
 enableFormValidation();
 

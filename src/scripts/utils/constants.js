@@ -16,6 +16,9 @@ export const formEditProfile = document.forms.editProfile;
 export const nameInput = formEditProfile.elements.name;
 export const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
 
+// Константы формы редактирования аватара
+export const formEditAvatar = document.forms.editAvatar;
+
 // Константы формы добавления новой карточки
 export const formCard = document.forms.newCard;
 export const btnAddCard = profile.querySelector(".profile__button-add");
