@@ -20,6 +20,7 @@ export default class Card {
 
   _handleCardLikeClick() {
     this._elementBtnLike.classList.toggle("card__button_status_active");
+    console.log(this._element);
   }
 
   _makeBtnDeleteVisible() {
