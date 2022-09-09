@@ -21,7 +21,6 @@ import {
 
 let cardSection = null;
 const userInfo = new UserInfo();
-const popupWithImage = new PopupWithImage(".popup_type_image");
 
 const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
@@ -94,9 +93,6 @@ const createNewCardElement = (
 
 
 
-
-
-
 //TODO
 const handleSubmitEditAvatar = ({ avatar }) => {
   popupWithFormEditAvatar.close();
@@ -143,6 +139,35 @@ const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSub
 
 
 
+// Функция отслеживает нажатие кнопки Delete на карточке
+const handleCardDeleteClick = (cardElement) => {
+  popupDeleteCard.open(cardElement);
+};
+
+// Функция отслеживает нажатие подтверждения удаления карточки
+const handleSubmitDeleteCard = (cardElement) => {
+  api.deleteCard(cardElement.cardID)
+    .then((result) => {
+      if (result.message === 'Пост удалён') {
+        cardElement.remove();
+        popupDeleteCard.close();
+      }
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handleSubmitDeleteCard);
+
+
+
+
+
+// Функция открывает Popup при клике на карточку
+const handleCardClick = ({ imageTitle, imageLink }) => {
+  popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
+};
+const popupWithImage = new PopupWithImage(".popup_type_image");
 
 
 
@@ -177,30 +202,6 @@ const openAddCardForm = () => {
 
 
 
-// Функция открывает Popup при клике на карточку
-const handleCardClick = ({ imageTitle, imageLink }) => {
-  popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
-};
-
-// Функция отслеживает нажатие кнопки Delete на карточке
-const handleCardDeleteClick = (cardElement) => {
-  popupDeleteCard.open(cardElement);
-};
-
-// Функция отслеживает нажатие подтверждения удаления карточки
-const handlePopupDeleteCardClick = (cardElement) => {
-  deleteCardFromServer(cardElement.cardID);
-  cardElement.remove();
-  popupDeleteCard.close();
-};
-
-
-
-
-
-
-// 6. Попап удаления карточки
-const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handlePopupDeleteCardClick);
 
 
 
@@ -212,20 +213,8 @@ const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handlePopu
 
 
 
-// 7. Удаление карточки из данных сервера
-function deleteCardFromServer(cardId) {
-  fetch(`https://mesto.nomoreparties.co/v1/cohort-49/cards/${cardId}`, {
-    method: "DELETE",
-    headers: {
-      authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
-    },
-  }).then((response) => {
-    // Карточна успешно удалена если ок
-    if (response.ok) {
-      return response.json();
-    }
-  });
-}
+
+
 
 
 
@@ -294,6 +283,13 @@ function removeCardLike(cardItem) {
       cardItem.setLikeStatusToCard();
     });
 }
+
+
+
+
+
+
+
 
 // Включаем валидацию
 const enableFormValidation = () => {
