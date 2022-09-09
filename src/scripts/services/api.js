@@ -56,6 +56,23 @@ class Api {
       });
   }
 
+  addNewCard({name, link}) {
+    return fetch(this._baseUrl + '/cards', {
+      method: 'POST',
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": this._contentType
+      },
+      body: JSON.stringify({ name: name, link: link })
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(`Ошибка: ${response.status}`);
+      });
+  }
+
 
 
 
