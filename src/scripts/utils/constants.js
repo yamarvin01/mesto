@@ -10,15 +10,16 @@ export const validationConfig = {
 // Константы профиля на главной странице
 export const profile = document.querySelector(".profile");
 export const btnEditProfile = profile.querySelector(".profile__button-edit");
+export const btnEditAvatar = profile.querySelector('.profile__avatar-button');
+
+// Константы формы редактирования аватара
+export const formEditAvatar = document.forms.editAvatar;
 
 // Константы формы редактирования профиля
 export const formEditProfile = document.forms.editProfile;
 export const nameInput = formEditProfile.elements.name;
 export const aboutYourSelfInput = formEditProfile.elements.aboutYourSelf;
 
-// Константы формы редактирования аватара
-export const formEditAvatar = document.forms.editAvatar;
-
 // Константы формы добавления новой карточки
-export const formCard = document.forms.newCard;
+export const formAddCard = document.forms.newCard;
 export const btnAddCard = profile.querySelector(".profile__button-add");

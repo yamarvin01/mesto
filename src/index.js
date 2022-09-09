@@ -7,13 +7,14 @@ import PopupWithForm from "./scripts/components/PopupWithForm.js";
 import PopupDeleteCard from "./scripts/components/PopupDeleteCard.js";
 import FormValidator from "./scripts/components/FormValidator.js";
 import {
+  btnEditAvatar,
   btnEditProfile,
+  btnAddCard,
+  formEditAvatar,
   formEditProfile,
+  formAddCard,
   nameInput,
   aboutYourSelfInput,
-  formEditAvatar,
-  formCard,
-  btnAddCard,
   validationConfig,
 } from "./scripts/utils/constants.js";
 
@@ -21,7 +22,7 @@ let cardSection = null;
 const userInfo = new UserInfo();
 
 const formValidatorEditProfile = new FormValidator(validationConfig,formEditProfile);
-const formValidatorAddCard = new FormValidator(validationConfig, formCard);
+const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
 const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
 
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
