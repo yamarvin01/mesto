@@ -99,6 +99,9 @@ const handleSubmitEditAvatar = ({ avatar }) => {
   popupWithFormEditAvatar.disableSubmitButton();
 };
 const popupWithFormEditAvatar = new PopupWithForm(".popup_type_edit-avatar", handleSubmitEditAvatar);
+const openEditAvatarForm = () => {
+  popupWithFormEditAvatar.open();
+};
 
 // 3. Функция обработывает сабмит формы Редактирования Профиля
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
@@ -113,6 +116,12 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
     });
 };
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
+const openEditProfileForm = () => {
+  const userInfoData = userInfo.getUserInfo();
+  nameInput.value = userInfoData.userName;
+  aboutInput.value = userInfoData.aboutYourSelf;
+  popupWithFormEditProfile.open();
+};
 
 // 4. Функция обработывает сабмит добавления новой карточки
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
@@ -134,6 +143,9 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
     });
 };
 const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
+const openAddCardForm = () => {
+  popupWithFormAddCard.open();
+};
 
 
 
@@ -176,29 +188,6 @@ const popupWithImage = new PopupWithImage(".popup_type_image");
 
 
 
-
-
-
-
-
-// TODO
-// Функция открывает форму для редактирования аватара
-const openEditAvatarForm = () => {
-  popupWithFormEditAvatar.open();
-};
-
-// Функция открывает форму для редактирования профиля
-const openEditProfileForm = () => {
-  const userInfoData = userInfo.getUserInfo();
-  nameInput.value = userInfoData.userName;
-  aboutInput.value = userInfoData.aboutYourSelf;
-  popupWithFormEditProfile.open();
-};
-
-// Функция открывает форму для добавления карточки
-const openAddCardForm = () => {
-  popupWithFormAddCard.open();
-};
 
 
 
