@@ -27,7 +27,7 @@ const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvat
 const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
 
-// 1. Загрузка информации о пользователе с сервера
+// Загрузка информации о пользователе с сервера
 function addUserInfo() {
   api
     .getUserInfo()
@@ -45,7 +45,7 @@ function addUserInfo() {
 }
 addUserInfo();
 
-// 2. Загрузка карточек с сервера
+// Загрузка карточек с сервера
 function addInitialCards() {
   api
     .getInitialCards()
@@ -95,7 +95,7 @@ const createNewCardElement = (
 
 
 
-//TODO
+// Функция обработывает сабмит формы Редактирования Аватара
 const handleSubmitEditAvatar = ({ avatar }) => {
   api.editProfileAvatar(avatar)
     .then((result) => {
@@ -113,11 +113,11 @@ const openEditAvatarForm = () => {
   popupWithFormEditAvatar.open();
 };
 
-// 3. Функция обработывает сабмит формы Редактирования Профиля
+// Функция обработывает сабмит формы Редактирования Профиля
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   api.editProfile({name: name, about: aboutYourSelf})
     .then((result) => {
-      userInfo.setUserInfo({ userName: result.name, aboutYourSelf: result.about });
+      userInfo.setUserInfo({ name: result.name, about: result.about });
       formValidatorEditProfile.disableSubmitButton();
       popupWithFormEditProfile._btnSubmit.textContent = 'Сохранение';
       popupWithFormEditProfile.close();
@@ -134,7 +134,7 @@ const openEditProfileForm = () => {
   popupWithFormEditProfile.open();
 };
 
-// 4. Функция обработывает сабмит добавления новой карточки
+// Функция обработывает сабмит добавления новой карточки
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
   api.addNewCard({name: cardName, link: cardLink})
     .then((result) => {
@@ -237,12 +237,12 @@ function removeCardLike(cardItem) {
 
 // Включаем валидацию
 const enableFormValidation = () => {
+  formValidatorEditAvatar.enableValidation();
+  formValidatorEditAvatar.disableSubmitButton();
   formValidatorEditProfile.enableValidation();
   formValidatorEditProfile.disableSubmitButton();
   formValidatorAddCard.enableValidation();
   formValidatorAddCard.disableSubmitButton();
-  formValidatorEditAvatar.enableValidation();
-  formValidatorEditAvatar.disableSubmitButton();
 };
 enableFormValidation();
 
