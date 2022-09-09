@@ -117,21 +117,7 @@ class Api {
         return Promise.reject(`Ошибка: ${response.status}`);
       });
   }
-
-
-
-
-
 }
-
-
-
-
-
-
-
-
-
 
 export const api = new Api({
   baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-49',
@@ -140,15 +126,3 @@ export const api = new Api({
     'Content-Type': 'application/json'
   }
 });
-
-
-
-
-
-
-
-
-
-
-
-
