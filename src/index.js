@@ -175,6 +175,8 @@ const openAddCardForm = () => {
   popupWithFormAddCard.open();
 };
 
+
+
 // Функция открывает Popup при клике на карточку
 const handleCardClick = ({ imageTitle, imageLink }) => {
   popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
@@ -197,16 +199,18 @@ const handlePopupDeleteCardClick = (cardElement) => {
 
 
 
-
-
-
-
-
 // 6. Попап удаления карточки
-const popupDeleteCard = new PopupDeleteCard(
-  ".popup_type_deleteCard",
-  handlePopupDeleteCardClick
-);
+const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handlePopupDeleteCardClick);
+
+
+
+
+
+
+
+
+
+
 
 // 7. Удаление карточки из данных сервера
 function deleteCardFromServer(cardId) {
@@ -222,6 +226,20 @@ function deleteCardFromServer(cardId) {
     }
   });
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 // Функция отслеживает статус лайка
 const handleCardLikeClick = (cardItem) => {
@@ -276,14 +294,6 @@ function removeCardLike(cardItem) {
       cardItem.setLikeStatusToCard();
     });
 }
-
-
-
-
-
-
-
-
 
 // Включаем валидацию
 const enableFormValidation = () => {

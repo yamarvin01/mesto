@@ -73,6 +73,10 @@ class Api {
       });
   }
 
+  deleteCard() {
+    
+  }
+
 
 
 

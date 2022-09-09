@@ -53,7 +53,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._elementTitle = this._element.querySelector(".card__title");
     this._elementImage = this._element.querySelector(".card__image");
-    this._elementLikes = this._element.querySelector(".card__likeText");
+    this._elementLikes = this._element.querySelector(".card__like-text");
     this._elementBtnLike = this._element.querySelector(".card__button_type_like");
     this._elementBtnDelete = this._element.querySelector(".card__button_type_delete");
     this._elementTitle.textContent = this._title;
