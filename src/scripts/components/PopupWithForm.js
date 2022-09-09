@@ -17,21 +17,16 @@ export default class PopupWithForm extends Popup {
     return inputValues;
   }
 
-  // Перезаписывает родительский метод
-  // должен не только добавлять обработчик клика иконке закрытия, но и добавлять обработчик сабмита формы
   setEventListeners() {
     super.setEventListeners();
     this._form.addEventListener("submit", (evt) => {
       evt.preventDefault();
-      console.log(1);
       this._btnSubmit.textContent = 'Сохранение...';
       const inputValues = this._getInputValues();
       this._submitForm(inputValues);
-      console.log(inputValues);
     });
   }
 
-  // Перезаписывает родительский метод close, так как при закрытии попапа форма должна ещё и сбрасываться
   close() {
     super.close();
     this._form.reset();

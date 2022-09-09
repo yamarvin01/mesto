@@ -29,10 +29,8 @@ const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
 
 // Загрузка информации о пользователе с сервера
 function addUserInfo() {
-  api
-    .getUserInfo()
+  api.getUserInfo()
     .then((result) => {
-      console.log(result);
       userInfo.setUserInfo({
         name: result.name,
         about: result.about,
@@ -47,8 +45,7 @@ addUserInfo();
 
 // Загрузка карточек с сервера
 function addInitialCards() {
-  api
-    .getInitialCards()
+  api.getInitialCards()
     .then((result) => {
       cardSection = new Section(
         result,
@@ -93,8 +90,6 @@ const createNewCardElement = (
 
 
 
-
-
 // Функция обработывает сабмит формы Редактирования Аватара
 const handleSubmitEditAvatar = ({ avatar }) => {
   api.editProfileAvatar(avatar)
@@ -102,7 +97,7 @@ const handleSubmitEditAvatar = ({ avatar }) => {
       profileAvatar.src = result.avatar;
       formValidatorEditAvatar.disableSubmitButton();
       popupWithFormEditAvatar._btnSubmit.textContent = 'Сохранение';
-      formValidatorEditAvatar.close();
+      popupWithFormEditAvatar.close();
     })
     .catch((err) => {
       console.log(err);
@@ -185,15 +180,11 @@ const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handleSubm
 
 
 
-
-
 // Функция открывает Popup при клике на карточку
 const handleCardClick = ({ imageTitle, imageLink }) => {
   popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
 };
 const popupWithImage = new PopupWithImage(".popup_type_image");
-
-
 
 
 
@@ -230,8 +221,6 @@ function removeCardLike(cardItem) {
       console.log(err);
     });
 }
-
-
 
 
 
