@@ -88,14 +88,41 @@ class Api {
       });
   }
 
+  addLikeToCard(cardId) {
+    return fetch(this._baseUrl + `/cards/${cardId}/likes`, {
+      method: 'PUT',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(`Ошибка: ${response.status}`);
+      });
+  }
+
+  removeLikeFromCard(cardId) {
+    return fetch(this._baseUrl + `/cards/${cardId}/likes`, {
+      method: 'DELETE',
+      headers: {
+        authorization: this._authorization
+      }
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(`Ошибка: ${response.status}`);
+      });
+  }
+
 
 
 
 
 }
-
-
-
 
 
 
