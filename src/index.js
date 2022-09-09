@@ -20,10 +20,24 @@ import {
 
 let cardSection = null;
 const userInfo = new UserInfo();
+const popupWithImage = new PopupWithImage(".popup_type_image");
 
 const formValidatorEditProfile = new FormValidator(validationConfig,formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
 const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
+
+
+
+
+//TODO
+const handleSubmitEditAvatar = ({ avatar }) => {
+  console.log('avatar: ', avatar);
+  popupWithFormEditAvatar.close();
+  popupWithFormEditAvatar.disableSubmitButton();
+};
+const popupWithFormEditAvatar = new PopupWithForm('.popup_type_edit-avatar', handleSubmitEditAvatar);
+
+
 
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
@@ -32,15 +46,30 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
 };
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 
+
+
+// TODO
+// Функция открывает форму для редактирования аватара
+const openEditAvatarForm = () => {
+  popupWithFormEditAvatar.open();
+  console.log(popupWithFormEditAvatar);
+  console.log(popupWithFormEditProfile);
+}
+
+
+
 // Функция открывает форму для редактирования профиля
-const openEditForm = () => {
+const openEditProfileForm = () => {
   const userInfoData = userInfo.getUserInfo();
   nameInput.value = userInfoData.userName;
   aboutYourSelfInput.value = userInfoData.aboutYourSelf;
   popupWithFormEditProfile.open();
 };
 
-const popupWithImage = new PopupWithImage(".popup_type_image");
+// Функция открывает форму для добавления карточки
+const openAddCardForm = () => {
+  popupWithFormAddCard.open();
+};
 
 // Функция открывает Popup при клике на карточку
 const handleCardClick = ({ imageTitle, imageLink }) => {
@@ -64,11 +93,6 @@ const createNewCardElement = (cardItem, cardTemplate, handleCardClick, handleCar
   const card = new Card(cardItem, cardTemplate, handleCardClick, handleCardDeleteClick, handleCardLikeClick);
   const cardElement = card.generateCard();
   return cardElement;
-};
-
-// Функция открывает форму для добавления карточки
-const openAddCardForm = () => {
-  popupWithFormAddCard.open();
 };
 
 // 1. Загрузка информации о пользователе с сервера
@@ -132,8 +156,6 @@ function onEditProfile() {
     }),
   });
 }
-onEditProfile();
-onUserInfo();
 
 // 4. Добавление новой карточки
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
@@ -252,7 +274,8 @@ const enableFormValidation = () => {
 enableFormValidation();
 
 // Обработчики событий
-btnEditProfile.addEventListener("click", openEditForm);
+btnEditAvatar.addEventListener('click', openEditAvatarForm);
+btnEditProfile.addEventListener("click", openEditProfileForm);
 btnAddCard.addEventListener("click", openAddCardForm);
 popupWithImage.setEventListeners();
 popupWithFormEditProfile.setEventListeners();
