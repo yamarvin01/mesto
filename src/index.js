@@ -108,12 +108,13 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   api.editProfile({name: name, about: aboutYourSelf})
     .then((result) => {
       userInfo.setUserInfo({ userName: result.name, aboutYourSelf: result.about });
-      popupWithFormEditProfile.close();
       formValidatorEditProfile.disableSubmitButton();
+      popupWithFormEditProfile._btnSubmit.textContent = 'Сохранение';
+      popupWithFormEditProfile.close();
     })
     .catch((err) => {
       console.log(err);
-    });
+    })
 };
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 const openEditProfileForm = () => {
@@ -136,6 +137,7 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       );
       cardSection.addItemPrepend(cardElement);
       formValidatorAddCard.disableSubmitButton();
+      popupWithFormAddCard._btnSubmit.textContent = 'Создать';
       popupWithFormAddCard.close();
     })
     .catch((err) => {
@@ -218,46 +220,6 @@ function removeCardLike(cardItem) {
       console.log(err);
     });
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
