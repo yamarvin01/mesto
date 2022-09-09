@@ -23,15 +23,9 @@ let cardSection = null;
 const userInfo = new UserInfo();
 const popupWithImage = new PopupWithImage(".popup_type_image");
 
-const formValidatorEditProfile = new FormValidator(
-  validationConfig,
-  formEditProfile
-);
+const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
-const formValidatorEditAvatar = new FormValidator(
-  validationConfig,
-  formEditAvatar
-);
+const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
 
 //TODO
 const handleSubmitEditAvatar = ({ avatar }) => {
@@ -39,18 +33,28 @@ const handleSubmitEditAvatar = ({ avatar }) => {
   popupWithFormEditAvatar.close();
   popupWithFormEditAvatar.disableSubmitButton();
 };
-const popupWithFormEditAvatar = new PopupWithForm(
-  ".popup_type_edit-avatar",
-  handleSubmitEditAvatar
-);
+const popupWithFormEditAvatar = new PopupWithForm(".popup_type_edit-avatar", handleSubmitEditAvatar);
 
-// Функция обработывает сабмит формы
+
+
+
+// Функция обработывает сабмит формы Редактирования Профиля
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
-  userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
-  popupWithFormEditProfile.close();
-  formValidatorEditProfile.disableSubmitButton();
+  api.editProfile({name: name, about: aboutYourSelf})
+    .then((result) => {
+      console.log('result: ', result);
+      userInfo.setUserInfo({ userName: result.name, aboutYourSelf: result.about });
+      popupWithFormEditProfile.close();
+      formValidatorEditProfile.disableSubmitButton();
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
+
+
+
 
 // TODO
 // Функция открывает форму для редактирования аватара
@@ -157,16 +161,7 @@ addInitialCards();
 
 
 
-// 3. Редактирование профиля
-function editProfileOnServer() {
-  api.editProfile({name: 'Marsel Ishmukhametov', about: 'Super Hero'})
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
+
 
 // 4. Добавление новой карточки
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
