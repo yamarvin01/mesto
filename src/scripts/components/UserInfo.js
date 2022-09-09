@@ -12,8 +12,9 @@ export default class UserInfo {
     return { userName: this._profileTitle, aboutYourSelf: this._profileSubtitle, avatar: this._profileAvatar };
   }
 
-  setUserInfo({ userName, aboutYourSelf }) {
-    this._profileTitleElement.textContent = userName;
-    this._profileSubtitleElement.textContent = aboutYourSelf;
+  setUserInfo({ name, about, avatar }) {
+    this._profileTitleElement.textContent = name;
+    this._profileSubtitleElement.textContent = about;
+    this._profileAvatarElement.src = avatar;
   }
 }

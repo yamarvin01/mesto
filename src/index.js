@@ -8,6 +8,7 @@ import PopupDeleteCard from "./scripts/components/PopupDeleteCard.js";
 import FormValidator from "./scripts/components/FormValidator.js";
 import { api } from "./scripts/services/api.js";
 import {
+  profileAvatar,
   btnEditAvatar,
   btnEditProfile,
   btnAddCard,
@@ -22,18 +23,19 @@ import {
 let cardSection = null;
 const userInfo = new UserInfo();
 
+const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
 const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
 const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
-const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
 
 // 1. Загрузка информации о пользователе с сервера
 function addUserInfo() {
   api
     .getUserInfo()
     .then((result) => {
+      console.log(result);
       userInfo.setUserInfo({
-        userName: result.name,
-        aboutYourSelf: result.about,
+        name: result.name,
+        about: result.about,
         avatar: result.avatar,
       });
     })
@@ -95,8 +97,16 @@ const createNewCardElement = (
 
 //TODO
 const handleSubmitEditAvatar = ({ avatar }) => {
-  popupWithFormEditAvatar.close();
-  popupWithFormEditAvatar.disableSubmitButton();
+  api.editProfileAvatar(avatar)
+    .then((result) => {
+      profileAvatar.src = result.avatar;
+      formValidatorEditAvatar.disableSubmitButton();
+      popupWithFormEditAvatar._btnSubmit.textContent = 'Сохранение';
+      formValidatorEditAvatar.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
 };
 const popupWithFormEditAvatar = new PopupWithForm(".popup_type_edit-avatar", handleSubmitEditAvatar);
 const openEditAvatarForm = () => {
@@ -241,6 +251,7 @@ btnEditAvatar.addEventListener("click", openEditAvatarForm);
 btnEditProfile.addEventListener("click", openEditProfileForm);
 btnAddCard.addEventListener("click", openAddCardForm);
 popupWithImage.setEventListeners();
+popupWithFormEditAvatar.setEventListeners();
 popupWithFormEditProfile.setEventListeners();
 popupWithFormAddCard.setEventListeners();
 popupDeleteCard.setEventListeners();
