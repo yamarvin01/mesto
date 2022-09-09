@@ -9,7 +9,9 @@
 @import url("./styles/blocks/content/content.css");
 
 @import url("./styles/blocks/profile/profile.css");
+@import url('./styles/blocks/profile/__avatar-section/profile__avatar-section.css');
 @import url("./styles/blocks/profile/__avatar/profile__avatar.css");
+@import url('./styles/blocks/profile/__avatar-button/profile__avatar-button.css');
 @import url("./styles/blocks/profile/__edit/profile__edit.css");
 @import url("./styles/blocks/profile/__title/profile__title.css");
 @import url("./styles/blocks/profile/__subtitle/profile__subtitle.css");

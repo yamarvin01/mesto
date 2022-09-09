@@ -19,30 +19,41 @@
       </header>
 
       <main class="content">
+
+
+
         <section class="profile">
-          <img
-            class="profile__avatar"
-            src="<%=require('./styles/images/avatar.jpg')%>"
-            alt="Аватарка"
-          />
+
+          <div class="profile__avatar-section">
+
+            <img
+              class="profile__avatar"
+              src="<%=require('./styles/images/avatar.jpg')%>"
+              alt="Аватарка"
+            />
+
+            <button class="profile__avatar-button"></button>
+
+          </div>
+
+
+
           <div class="profile__edit">
             <h1 class="profile__title">Имя и Фамилия</h1>
             <button
               class="profile__button-edit"
               type="button"
-              aria-label="Кнопка редактирования контента"
-            ></button>
+              aria-label="Кнопка редактирования контента"></button>
           </div>
           <p class="profile__subtitle">В двух словах о себе</p>
           <button
             class="profile__button-add"
             type="button"
-            aria-label="Кнопка добавления контента"
-          ></button>
+            aria-label="Кнопка добавления контента"></button>
         </section>
 
         <section class="cards">
-          <!-- Место под карточки -->
+          <!-- Место для карточек -->
         </section>
       </main>
 
@@ -213,16 +224,14 @@
             <button
               class="card__button card__button_type_like"
               type="button"
-              aria-label="Кнопка лайк"
-            ></button>
+              aria-label="Кнопка лайк"></button>
             <p class="card__likeText"></p>
           </div>
         </div>
         <button
           class="card__button card__button_type_delete"
           type="button"
-          aria-label="Кнопка удаления"
-        ></button>
+          aria-label="Кнопка удаления"></button>
       </article>
     </template>
 
