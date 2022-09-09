@@ -3,6 +3,7 @@ class Api {
     this._options = options;
     this._baseUrl = this._options.baseUrl;
     this._authorization = this._options.headers.authorization;
+    this._contentType = this._options.headers['Content-Type'];
   }
 
   getUserInfo() {
@@ -35,6 +36,28 @@ class Api {
       });
   }
 
+
+
+
+  editProfile({name, about}) {
+    return fetch(this._baseUrl + '/users/me', {
+      method: 'PATCH',
+      headers: {
+        authorization: this._authorization,
+        "Content-Type": this._contentType
+      },
+      body: JSON.stringify({
+        name: name,
+        about: about,
+      }),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        }
+        return Promise.reject(`Ошибка: ${response.status}`);
+      });
+  }
 
 
 

@@ -44,6 +44,7 @@ const popupWithFormEditAvatar = new PopupWithForm(
   handleSubmitEditAvatar
 );
 
+// Функция обработывает сабмит формы
 const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
   userInfo.setUserInfo({ userName: name, aboutYourSelf: aboutYourSelf });
   popupWithFormEditProfile.close();
@@ -157,18 +158,14 @@ addInitialCards();
 
 
 // 3. Редактирование профиля
-function onEditProfile() {
-  fetch("https://mesto.nomoreparties.co/v1/cohort-49/users/me", {
-    method: "PATCH",
-    headers: {
-      authorization: "37ded591-0952-406f-9bd6-1d8027d482f6",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify({
-      name: "Йода",
-      about: "Гранд-мастер Ордена джедаев",
-    }),
-  });
+function editProfileOnServer() {
+  api.editProfile({name: 'Marsel Ishmukhametov', about: 'Super Hero'})
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 }
 
 // 4. Добавление новой карточки
