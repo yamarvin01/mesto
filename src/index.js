@@ -17,6 +17,7 @@ import {
   validationConfig,
 } from "./scripts/utils/constants.js";
 
+let userId = null;
 let cardSection = null;
 const userInfo = new UserInfo();
 
@@ -25,6 +26,7 @@ function addInitialUserInfo() {
   api.getUserInfo()
     .then((result) => {
       userInfo.setUserInfo(result);
+      userId = result._id;
     })
     .catch((err) => {
       console.log(err);
