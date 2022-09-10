@@ -1,7 +1,7 @@
 export default class Card {
   constructor({ name, link, likes, owner, _id }, cardSelector, handleCardClick, handleCardDeleteClick, handleCardLikeClick) {
     this._title = name;
-    this._imageLink = link;
+    this._link = link;
     this._likes = likes;
     this._owner = owner;
     this._id = _id;
@@ -27,7 +27,7 @@ export default class Card {
 
   _setEventListeners() {
     this._elementImage.addEventListener("click", () => {
-      this._handleCardClick({ imageTitle: this._title, imageLink: this._imageLink });
+      this._handleCardClick({ imageTitle: this._title, imageLink: this._link });
     });
     this._elementBtnLike.addEventListener("click", () => {
       this._handleCardLikeClick(this);
@@ -57,7 +57,7 @@ export default class Card {
     this._elementBtnLike = this._element.querySelector(".card__button_type_like");
     this._elementBtnDelete = this._element.querySelector(".card__button_type_delete");
     this._elementTitle.textContent = this._title;
-    this._elementImage.src = this._imageLink;
+    this._elementImage.src = this._link;
     this._elementImage.alt = "Изображение: " + this._title;
     this._element.cardID = this._id;
     this._makeBtnDeleteVisible();
