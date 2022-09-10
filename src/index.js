@@ -21,19 +21,11 @@ import {
 let cardSection = null;
 const userInfo = new UserInfo();
 
-const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
-const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
-const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
-
 // Загрузка информации о пользователе с сервера
 function addInitialUserInfo() {
   api.getUserInfo()
     .then((result) => {
-      userInfo.setUserInfo({
-        name: result.name,
-        about: result.about,
-        avatar: result.avatar,
-      });
+      userInfo.setUserInfo(result);
     })
     .catch((err) => {
       console.log(err);
@@ -92,7 +84,7 @@ const createNewCardElement = (
 const handleSubmitEditAvatar = ({ avatar }) => {
   api.editProfileAvatar(avatar)
     .then((result) => {
-      profileAvatar.src = result.avatar;
+      userInfo.setUserInfo(result);
       formValidatorEditAvatar.disableSubmitButton();
       popupWithFormEditAvatar.close();
     })
@@ -112,7 +104,7 @@ const openEditAvatarForm = () => {
 const handleSubmitEditProfile = ({ name, about }) => {
   api.editProfile({name: name, about: about})
     .then((result) => {
-      userInfo.setUserInfo({ name: result.name, about: result.about });
+      userInfo.setUserInfo(result);
       formValidatorEditProfile.disableSubmitButton();
       popupWithFormEditProfile.close();
     })
@@ -227,6 +219,10 @@ function removeCardLike(cardItem) {
 
 
 
+const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
+const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
+const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
+
 // Включаем валидацию
 const enableFormValidation = () => {
   formValidatorEditAvatar.enableValidation();
@@ -237,6 +233,8 @@ const enableFormValidation = () => {
   formValidatorAddCard.disableSubmitButton();
 };
 enableFormValidation();
+
+
 
 // Обработчики событий
 btnEditAvatar.addEventListener("click", openEditAvatarForm);
