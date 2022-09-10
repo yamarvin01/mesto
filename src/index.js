@@ -8,51 +8,34 @@ import PopupDeleteCard from "./scripts/components/PopupDeleteCard.js";
 import FormValidator from "./scripts/components/FormValidator.js";
 import { api } from "./scripts/services/api.js";
 import {
-  profileAvatar,
   btnEditAvatar,
   btnEditProfile,
   btnAddCard,
   formEditAvatar,
   formEditProfile,
   formAddCard,
-  nameInput,
-  aboutInput,
   validationConfig,
 } from "./scripts/utils/constants.js";
 
+let userId = null;
 let cardSection = null;
 const userInfo = new UserInfo();
 
-const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
-const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
-const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
-
-// Загрузка информации о пользователе с сервера
-function addUserInfo() {
-  api.getUserInfo()
-    .then((result) => {
-      userInfo.setUserInfo({
-        name: result.name,
-        about: result.about,
-        avatar: result.avatar,
-      });
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-addUserInfo();
-
-// Загрузка карточек с сервера
-function addInitialCards() {
-  api.getInitialCards()
-    .then((result) => {
+// Загрузка данных пользователя и карточек с сервера при старте страницы
+function addInitialUserInfoAndCardsToDOM() {
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, cards]) => {
+      // Установка данных пользователя с сервера
+      userInfo.setUserInfo(userData);
+      userId = userData._id;
+      // Установка и отрисовка карточек с сервера
       cardSection = new Section(
-        result,
+        cards,
         (cardItem) => {
           const cardElement = createNewCardElement(
             cardItem,
             "#card-template",
+            userId,
             handleCardClick,
             handleCardDeleteClick,
             handleCardLikeClick
@@ -67,12 +50,13 @@ function addInitialCards() {
       console.log(err);
     });
 }
-addInitialCards();
+addInitialUserInfoAndCardsToDOM();
 
 // Функция создания новой карточки
 const createNewCardElement = (
   cardItem,
   cardTemplate,
+  userId,
   handleCardClick,
   handleCardDeleteClick,
   handleCardLikeClick
@@ -80,6 +64,7 @@ const createNewCardElement = (
   const card = new Card(
     cardItem,
     cardTemplate,
+    userId,
     handleCardClick,
     handleCardDeleteClick,
     handleCardLikeClick
@@ -92,16 +77,19 @@ const createNewCardElement = (
 
 // Функция обработывает сабмит формы Редактирования Аватара
 const handleSubmitEditAvatar = ({ avatar }) => {
-  api.editProfileAvatar(avatar)
+  api
+    .editProfileAvatar(avatar)
     .then((result) => {
-      profileAvatar.src = result.avatar;
+      userInfo.setUserInfo(result);
       formValidatorEditAvatar.disableSubmitButton();
-      popupWithFormEditAvatar._btnSubmit.textContent = 'Сохранение';
       popupWithFormEditAvatar.close();
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      popupWithFormEditAvatar._btnSubmit.textContent = "Сохранение";
+    });
 };
 const popupWithFormEditAvatar = new PopupWithForm(".popup_type_edit-avatar", handleSubmitEditAvatar);
 const openEditAvatarForm = () => {
@@ -109,52 +97,56 @@ const openEditAvatarForm = () => {
 };
 
 // Функция обработывает сабмит формы Редактирования Профиля
-const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
-  api.editProfile({name: name, about: aboutYourSelf})
+const handleSubmitEditProfile = ({ name, about }) => {
+  api
+    .editProfile({ name: name, about: about })
     .then((result) => {
-      userInfo.setUserInfo({ name: result.name, about: result.about });
+      userInfo.setUserInfo(result);
       formValidatorEditProfile.disableSubmitButton();
-      popupWithFormEditProfile._btnSubmit.textContent = 'Сохранение';
       popupWithFormEditProfile.close();
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      popupWithFormEditProfile._btnSubmit.textContent = "Сохранение";
+    });
 };
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 const openEditProfileForm = () => {
   const userInfoData = userInfo.getUserInfo();
-  nameInput.value = userInfoData.userName;
-  aboutInput.value = userInfoData.aboutYourSelf;
+  popupWithFormEditProfile.setInputValues(userInfoData);
   popupWithFormEditProfile.open();
 };
 
 // Функция обработывает сабмит добавления новой карточки
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
-  api.addNewCard({name: cardName, link: cardLink})
+  api
+    .addNewCard({ name: cardName, link: cardLink })
     .then((result) => {
       const cardElement = createNewCardElement(
         result,
         "#card-template",
+        userId,
         handleCardClick,
         handleCardDeleteClick,
         handleCardLikeClick
       );
       cardSection.addItemPrepend(cardElement);
       formValidatorAddCard.disableSubmitButton();
-      popupWithFormAddCard._btnSubmit.textContent = 'Создать';
       popupWithFormAddCard.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupWithFormAddCard._btnSubmit.textContent = "Создать";
     });
 };
 const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
 const openAddCardForm = () => {
   popupWithFormAddCard.open();
 };
-
-
 
 
 
@@ -165,9 +157,10 @@ const handleCardDeleteClick = (cardElement) => {
 
 // Функция отслеживает нажатие подтверждения удаления карточки
 const handleSubmitDeleteCard = (cardElement) => {
-  api.deleteCard(cardElement.cardID)
+  api
+    .deleteCard(cardElement.cardID)
     .then((result) => {
-      if (result.message === 'Пост удалён') {
+      if (result.message === "Пост удалён") {
         cardElement.remove();
         popupDeleteCard.close();
       }
@@ -200,7 +193,8 @@ const handleCardLikeClick = (cardItem) => {
 
 // Функция устанавливает лайк
 function addCardLike(cardItem) {
-  api.addLikeToCard(cardItem._id)
+  api
+    .addLikeToCard(cardItem._id)
     .then((result) => {
       cardItem._likes = result.likes;
       cardItem.setLikeStatusToCard();
@@ -212,7 +206,8 @@ function addCardLike(cardItem) {
 
 // Функция удаляет лайк
 function removeCardLike(cardItem) {
-  api.removeLikeFromCard(cardItem._id)
+  api
+    .removeLikeFromCard(cardItem._id)
     .then((result) => {
       cardItem._likes = result.likes;
       cardItem.setLikeStatusToCard();
@@ -223,6 +218,10 @@ function removeCardLike(cardItem) {
 }
 
 
+
+const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
+const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
+const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
 
 // Включаем валидацию
 const enableFormValidation = () => {
