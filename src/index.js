@@ -28,7 +28,7 @@ const formValidatorEditProfile = new FormValidator(validationConfig, formEditPro
 const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
 
 // Загрузка информации о пользователе с сервера
-function addUserInfo() {
+function addInitialUserInfo() {
   api.getUserInfo()
     .then((result) => {
       userInfo.setUserInfo({
@@ -41,7 +41,7 @@ function addUserInfo() {
       console.log(err);
     });
 }
-addUserInfo();
+addInitialUserInfo();
 
 // Загрузка карточек с сервера
 function addInitialCards() {
@@ -96,12 +96,14 @@ const handleSubmitEditAvatar = ({ avatar }) => {
     .then((result) => {
       profileAvatar.src = result.avatar;
       formValidatorEditAvatar.disableSubmitButton();
-      popupWithFormEditAvatar._btnSubmit.textContent = 'Сохранение';
       popupWithFormEditAvatar.close();
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      popupWithFormEditAvatar._btnSubmit.textContent = 'Сохранение';
+    });
 };
 const popupWithFormEditAvatar = new PopupWithForm(".popup_type_edit-avatar", handleSubmitEditAvatar);
 const openEditAvatarForm = () => {
@@ -114,12 +116,14 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
     .then((result) => {
       userInfo.setUserInfo({ name: result.name, about: result.about });
       formValidatorEditProfile.disableSubmitButton();
-      popupWithFormEditProfile._btnSubmit.textContent = 'Сохранение';
       popupWithFormEditProfile.close();
     })
     .catch((err) => {
       console.log(err);
     })
+    .finally(() => {
+      popupWithFormEditProfile._btnSubmit.textContent = 'Сохранение';
+    });
 };
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 const openEditProfileForm = () => {
@@ -142,11 +146,13 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       );
       cardSection.addItemPrepend(cardElement);
       formValidatorAddCard.disableSubmitButton();
-      popupWithFormAddCard._btnSubmit.textContent = 'Создать';
       popupWithFormAddCard.close();
     })
     .catch((err) => {
       console.log(err);
+    })
+    .finally(() => {
+      popupWithFormAddCard._btnSubmit.textContent = 'Создать';
     });
 };
 const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
