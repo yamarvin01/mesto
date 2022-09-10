@@ -7,17 +7,8 @@ export const validationConfig = {
   errorClass: "popup__error_active",
 };
 
-// Константы профиля на главной странице
+// Константы главной странице
 export const profile = document.querySelector(".profile");
 export const btnEditProfile = profile.querySelector(".profile__button-edit");
 export const btnEditAvatar = profile.querySelector('.profile__avatar-button');
-
-// Константы формы редактирования аватара
-export const formEditAvatar = document.forms.editAvatar;
-
-// Константы формы редактирования профиля
-export const formEditProfile = document.forms.editProfile;
-
-// Константы формы добавления новой карточки
-export const formAddCard = document.forms.newCard;
 export const btnAddCard = profile.querySelector(".profile__button-add");

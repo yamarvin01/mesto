@@ -11,9 +11,6 @@ import {
   btnEditAvatar,
   btnEditProfile,
   btnAddCard,
-  formEditAvatar,
-  formEditProfile,
-  formAddCard,
   validationConfig,
 } from "./scripts/utils/constants.js";
 
@@ -219,9 +216,9 @@ function removeCardLike(cardItem) {
 
 
 
-const formValidatorEditAvatar = new FormValidator(validationConfig, formEditAvatar);
-const formValidatorEditProfile = new FormValidator(validationConfig, formEditProfile);
-const formValidatorAddCard = new FormValidator(validationConfig, formAddCard);
+const formValidatorEditAvatar = new FormValidator(validationConfig, popupWithFormEditAvatar._form);
+const formValidatorEditProfile = new FormValidator(validationConfig, popupWithFormEditProfile._form);
+const formValidatorAddCard = new FormValidator(validationConfig, popupWithFormAddCard._form);
 
 // Включаем валидацию
 const enableFormValidation = () => {
