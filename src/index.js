@@ -41,13 +41,7 @@ function addInitialCards() {
       cardSection = new Section(
         result,
         (cardItem) => {
-          const cardElement = createNewCardElement(
-            cardItem,
-            "#card-template",
-            handleCardClick,
-            handleCardDeleteClick,
-            handleCardLikeClick
-          );
+          const cardElement = createNewCardElement( cardItem, "#card-template", handleCardClick, handleCardDeleteClick, handleCardLikeClick );
           cardSection.addItem(cardElement);
         },
         ".cards"
@@ -61,20 +55,8 @@ function addInitialCards() {
 addInitialCards();
 
 // Функция создания новой карточки
-const createNewCardElement = (
-  cardItem,
-  cardTemplate,
-  handleCardClick,
-  handleCardDeleteClick,
-  handleCardLikeClick
-) => {
-  const card = new Card(
-    cardItem,
-    cardTemplate,
-    handleCardClick,
-    handleCardDeleteClick,
-    handleCardLikeClick
-  );
+const createNewCardElement = ( cardItem, cardTemplate, handleCardClick, handleCardDeleteClick, handleCardLikeClick) => {
+  const card = new Card(cardItem, cardTemplate, handleCardClick, handleCardDeleteClick, handleCardLikeClick);
   const cardElement = card.generateCard();
   return cardElement;
 };
