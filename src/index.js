@@ -70,8 +70,6 @@ const createNewCardElement = (
   return cardElement;
 };
 
-
-
 // Функция обработывает сабмит формы Редактирования Аватара
 const handleSubmitEditAvatar = ({ avatar }) => {
   api
@@ -145,8 +143,6 @@ const openAddCardForm = () => {
   popupWithFormAddCard.open();
 };
 
-
-
 // Функция отслеживает нажатие кнопки Delete на карточке
 const handleCardDeleteClick = (cardElement) => {
   popupDeleteCard.open(cardElement);
@@ -168,15 +164,11 @@ const handleSubmitDeleteCard = (cardElement) => {
 };
 const popupDeleteCard = new PopupDeleteCard(".popup_type_deleteCard", handleSubmitDeleteCard);
 
-
-
 // Функция открывает Popup при клике на карточку
 const handleCardClick = ({ imageTitle, imageLink }) => {
   popupWithImage.open({ imageTitle: imageTitle, imageLink: imageLink });
 };
 const popupWithImage = new PopupWithImage(".popup_type_image");
-
-
 
 // Функция отслеживает нажатие кнопки лайк
 const handleCardLikeClick = (cardItem) => {
@@ -213,8 +205,6 @@ function removeCardLike(cardItem) {
       console.log(err);
     });
 }
-
-
 
 const formValidatorEditAvatar = new FormValidator(validationConfig, popupWithFormEditAvatar._form);
 const formValidatorEditProfile = new FormValidator(validationConfig, popupWithFormEditProfile._form);
