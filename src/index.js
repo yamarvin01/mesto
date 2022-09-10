@@ -21,27 +21,25 @@ let userId = null;
 let cardSection = null;
 const userInfo = new UserInfo();
 
-// Загрузка информации о пользователе с сервера
-function addInitialUserInfo() {
-  api.getUserInfo()
-    .then((result) => {
-      userInfo.setUserInfo(result);
-      userId = result._id;
-    })
-    .catch((err) => {
-      console.log(err);
-    });
-}
-addInitialUserInfo();
-
-// Загрузка карточек с сервера
-function addInitialCards() {
-  api.getInitialCards()
-    .then((result) => {
+// Загрузка данных пользователя и карточек с сервера при старте страницы
+function addInitialUserInfoAndCardsToDOM() {
+  Promise.all([api.getUserInfo(), api.getInitialCards()])
+    .then(([userData, cards]) => {
+      // Установка данных пользователя с сервера
+      userInfo.setUserInfo(userData);
+      userId = userData._id;
+      // Установка и отрисовка карточек с сервера
       cardSection = new Section(
-        result,
+        cards,
         (cardItem) => {
-          const cardElement = createNewCardElement( cardItem, "#card-template", userId, handleCardClick, handleCardDeleteClick, handleCardLikeClick );
+          const cardElement = createNewCardElement(
+            cardItem,
+            "#card-template",
+            userId,
+            handleCardClick,
+            handleCardDeleteClick,
+            handleCardLikeClick
+          );
           cardSection.addItem(cardElement);
         },
         ".cards"
@@ -52,11 +50,25 @@ function addInitialCards() {
       console.log(err);
     });
 }
-addInitialCards();
+addInitialUserInfoAndCardsToDOM();
 
 // Функция создания новой карточки
-const createNewCardElement = ( cardItem, cardTemplate, userId, handleCardClick, handleCardDeleteClick, handleCardLikeClick) => {
-  const card = new Card(cardItem, cardTemplate, userId, handleCardClick, handleCardDeleteClick, handleCardLikeClick);
+const createNewCardElement = (
+  cardItem,
+  cardTemplate,
+  userId,
+  handleCardClick,
+  handleCardDeleteClick,
+  handleCardLikeClick
+) => {
+  const card = new Card(
+    cardItem,
+    cardTemplate,
+    userId,
+    handleCardClick,
+    handleCardDeleteClick,
+    handleCardLikeClick
+  );
   const cardElement = card.generateCard();
   return cardElement;
 };
@@ -65,7 +77,8 @@ const createNewCardElement = ( cardItem, cardTemplate, userId, handleCardClick, 
 
 // Функция обработывает сабмит формы Редактирования Аватара
 const handleSubmitEditAvatar = ({ avatar }) => {
-  api.editProfileAvatar(avatar)
+  api
+    .editProfileAvatar(avatar)
     .then((result) => {
       userInfo.setUserInfo(result);
       formValidatorEditAvatar.disableSubmitButton();
@@ -75,7 +88,7 @@ const handleSubmitEditAvatar = ({ avatar }) => {
       console.log(err);
     })
     .finally(() => {
-      popupWithFormEditAvatar._btnSubmit.textContent = 'Сохранение';
+      popupWithFormEditAvatar._btnSubmit.textContent = "Сохранение";
     });
 };
 const popupWithFormEditAvatar = new PopupWithForm(".popup_type_edit-avatar", handleSubmitEditAvatar);
@@ -85,7 +98,8 @@ const openEditAvatarForm = () => {
 
 // Функция обработывает сабмит формы Редактирования Профиля
 const handleSubmitEditProfile = ({ name, about }) => {
-  api.editProfile({name: name, about: about})
+  api
+    .editProfile({ name: name, about: about })
     .then((result) => {
       userInfo.setUserInfo(result);
       formValidatorEditProfile.disableSubmitButton();
@@ -95,7 +109,7 @@ const handleSubmitEditProfile = ({ name, about }) => {
       console.log(err);
     })
     .finally(() => {
-      popupWithFormEditProfile._btnSubmit.textContent = 'Сохранение';
+      popupWithFormEditProfile._btnSubmit.textContent = "Сохранение";
     });
 };
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
@@ -107,7 +121,8 @@ const openEditProfileForm = () => {
 
 // Функция обработывает сабмит добавления новой карточки
 const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
-  api.addNewCard({name: cardName, link: cardLink})
+  api
+    .addNewCard({ name: cardName, link: cardLink })
     .then((result) => {
       const cardElement = createNewCardElement(
         result,
@@ -125,15 +140,13 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
       console.log(err);
     })
     .finally(() => {
-      popupWithFormAddCard._btnSubmit.textContent = 'Создать';
+      popupWithFormAddCard._btnSubmit.textContent = "Создать";
     });
 };
 const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
 const openAddCardForm = () => {
   popupWithFormAddCard.open();
 };
-
-
 
 
 
@@ -144,9 +157,10 @@ const handleCardDeleteClick = (cardElement) => {
 
 // Функция отслеживает нажатие подтверждения удаления карточки
 const handleSubmitDeleteCard = (cardElement) => {
-  api.deleteCard(cardElement.cardID)
+  api
+    .deleteCard(cardElement.cardID)
     .then((result) => {
-      if (result.message === 'Пост удалён') {
+      if (result.message === "Пост удалён") {
         cardElement.remove();
         popupDeleteCard.close();
       }
@@ -179,7 +193,8 @@ const handleCardLikeClick = (cardItem) => {
 
 // Функция устанавливает лайк
 function addCardLike(cardItem) {
-  api.addLikeToCard(cardItem._id)
+  api
+    .addLikeToCard(cardItem._id)
     .then((result) => {
       cardItem._likes = result.likes;
       cardItem.setLikeStatusToCard();
@@ -191,7 +206,8 @@ function addCardLike(cardItem) {
 
 // Функция удаляет лайк
 function removeCardLike(cardItem) {
-  api.removeLikeFromCard(cardItem._id)
+  api
+    .removeLikeFromCard(cardItem._id)
     .then((result) => {
       cardItem._likes = result.likes;
       cardItem.setLikeStatusToCard();
@@ -217,8 +233,6 @@ const enableFormValidation = () => {
   formValidatorAddCard.disableSubmitButton();
 };
 enableFormValidation();
-
-
 
 // Обработчики событий
 btnEditAvatar.addEventListener("click", openEditAvatarForm);
