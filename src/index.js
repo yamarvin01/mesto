@@ -15,8 +15,6 @@ import {
   formEditAvatar,
   formEditProfile,
   formAddCard,
-  nameInput,
-  aboutInput,
   validationConfig,
 } from "./scripts/utils/constants.js";
 
@@ -111,8 +109,8 @@ const openEditAvatarForm = () => {
 };
 
 // Функция обработывает сабмит формы Редактирования Профиля
-const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
-  api.editProfile({name: name, about: aboutYourSelf})
+const handleSubmitEditProfile = ({ name, about }) => {
+  api.editProfile({name: name, about: about})
     .then((result) => {
       userInfo.setUserInfo({ name: result.name, about: result.about });
       formValidatorEditProfile.disableSubmitButton();
@@ -128,8 +126,7 @@ const handleSubmitEditProfile = ({ name, aboutYourSelf }) => {
 const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", handleSubmitEditProfile);
 const openEditProfileForm = () => {
   const userInfoData = userInfo.getUserInfo();
-  nameInput.value = userInfoData.userName;
-  aboutInput.value = userInfoData.aboutYourSelf;
+  popupWithFormEditProfile.setInputValues(userInfoData);
   popupWithFormEditProfile.open();
 };
 
