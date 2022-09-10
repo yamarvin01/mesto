@@ -9,7 +9,6 @@ export const validationConfig = {
 
 // Константы профиля на главной странице
 export const profile = document.querySelector(".profile");
-export const profileAvatar = document.querySelector(".profile__avatar");
 export const btnEditProfile = profile.querySelector(".profile__button-edit");
 export const btnEditAvatar = profile.querySelector('.profile__avatar-button');
 

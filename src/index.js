@@ -8,7 +8,6 @@ import PopupDeleteCard from "./scripts/components/PopupDeleteCard.js";
 import FormValidator from "./scripts/components/FormValidator.js";
 import { api } from "./scripts/services/api.js";
 import {
-  profileAvatar,
   btnEditAvatar,
   btnEditProfile,
   btnAddCard,
