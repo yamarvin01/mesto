@@ -36,9 +36,7 @@ export default class FormValidator {
 
   // Метод, который выводит сообщение об ошибке
   _showInputError = (inputElement, _errorMessage) => {
-    const _errorElement = this._formElement.querySelector(
-      `.${inputElement.id}-error`
-    );
+    const _errorElement = this._formElement.querySelector(`.${inputElement.id}-error`);
     inputElement.classList.add(this._settings.inputErrorClass);
     _errorElement.textContent = _errorMessage;
     _errorElement.classList.add(this._settings.errorClass);
@@ -63,9 +61,20 @@ export default class FormValidator {
     }
   };
 
-  disableSubmitButton() {
+  _disableSubmitButton() {
     this._buttonElement.disabled = "true";
     this._buttonElement.classList.add(this._settings.inactiveButtonClass);
+  }
+
+  resetValidation() {
+    this._disableSubmitButton();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
+
+  disableSubmitButton() {
+    this._disableSubmitButton();
   }
 
   enableValidation() {

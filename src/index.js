@@ -88,6 +88,7 @@ const handleSubmitEditAvatar = ({ avatar }) => {
 };
 const popupWithFormEditAvatar = new PopupWithForm(".popup_type_edit-avatar", handleSubmitEditAvatar);
 const openEditAvatarForm = () => {
+  formValidatorEditAvatar.resetValidation();
   popupWithFormEditAvatar.open();
 };
 
@@ -111,6 +112,7 @@ const popupWithFormEditProfile = new PopupWithForm(".popup_type_edit-profile", h
 const openEditProfileForm = () => {
   const userInfoData = userInfo.getUserInfo();
   popupWithFormEditProfile.setInputValues(userInfoData);
+  formValidatorEditProfile.resetValidation();
   popupWithFormEditProfile.open();
 };
 
@@ -140,6 +142,7 @@ const handleSubmitAddCard = ({ place: cardName, link: cardLink }) => {
 };
 const popupWithFormAddCard = new PopupWithForm(".popup_type_add-card", handleSubmitAddCard);
 const openAddCardForm = () => {
+  formValidatorAddCard.resetValidation();
   popupWithFormAddCard.open();
 };
 
